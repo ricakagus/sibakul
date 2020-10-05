@@ -1,0 +1,36 @@
+[33mcommit 0a0ebf91191bc902a8eeccc221cdfd27f59a2323[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m)[m
+Author: ricakagus <ricak.agus@gmail.com>
+Date:   Mon Oct 5 18:08:14 2020 +0800
+
+    menambahkan frontend biaya konversi
+
+[33mcommit 64990e0ad47acbb3da08684bb0b85a501b08f894[m[33m ([m[1;31morigin/main[m[33m)[m
+Merge: 290e670 cabb968
+Author: ricakagus <ricak.agus@gmail.com>
+Date:   Mon Oct 5 17:33:05 2020 +0800
+
+    memperbaiki format currency
+
+[33mcommit 290e670ba5feda79f8758bdb3cd6ce07b9e5eab8[m
+Author: ricakagus <ricak.agus@gmail.com>
+Date:   Mon Oct 5 17:28:46 2020 +0800
+
+    memperbaiki format currency
+
+[33mcommit cabb968d1d39dada233d8631f4383575f6395fd3[m
+Author: ricakagus <67578710+ricakagus@users.noreply.github.com>
+Date:   Mon Oct 5 16:56:20 2020 +0800
+
+    file master database original
+
+[33mcommit 10ab68e951726eba90d72b5139ff1bede76dedaf[m
+Author: ricakagus <ricak.agus@gmail.com>
+Date:   Mon Oct 5 16:23:01 2020 +0800
+
+    menghapus user guider CI
+
+[33mcommit f3710f942f72e42d0c58e473b83b92ffcce7d9d8[m
+Author: ricakagus <ricak.agus@gmail.com>
+Date:   Mon Oct 5 16:21:29 2020 +0800
+
+    upload aplikasi original sebelum review dengan TTim STMIK Bandung Bali
