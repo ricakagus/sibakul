@@ -107,31 +107,31 @@
                           <td>1.</td>
                           <td>Cuti</td>
                           <td>:</td>
-                          <td>Rp. <?= $mahasiswa['cuti']; ?></td>
+                          <td>Rp. <?= number_format($mahasiswa['cuti'], '0', ',', '.'); ?></td>
                         </tr>
                         <tr>
                           <td>2.</td>
                           <td>DPP</td>
                           <td>:</td>
-                          <td>Rp. <?= $mahasiswa['dpp']; ?></td>
+                          <td>Rp. <?= number_format($mahasiswa['dpp'], '0', ',', '.'); ?></td>
                         </tr>
                         <tr>
                           <td>3.</td>
                           <td>Almamater</td>
                           <td>:</td>
-                          <td>Rp. <?= $mahasiswa['almamater']; ?></td>
+                          <td>Rp. <?= number_format($mahasiswa['almamater'], '0', ',', '.'); ?></td>
                         </tr>
                         <tr>
                           <td>4.</td>
                           <td>PSPT</td>
                           <td>:</td>
-                          <td>Rp. <?= $mahasiswa['pspt']; ?></td>
+                          <td>Rp. <?= number_format($mahasiswa['pspt'], '0', ',', '.'); ?></td>
                         </tr>
                         <tr>
                           <td>5.</td>
                           <td>Kerja Panjang (KP)</td>
                           <td>:</td>
-                          <td>Rp. <?= $mahasiswa['kp']; ?></td>
+                          <td>Rp. <?= number_format($mahasiswa['kp'], '0', ',', '.'); ?></td>
                         </tr>
                       </tbody>
                     <?php endif; ?>
@@ -160,31 +160,31 @@
                           <td>6.</td>
                           <td>Perpanjang KP</td>
                           <td>:</td>
-                          <td>Rp. <?= $mahasiswa['pkp']; ?></td>
+                          <td>Rp. <?= number_format($mahasiswa['pkp'], '0', ',', '.'); ?></td>
                         </tr>
                         <tr>
                           <td>7.</td>
                           <td>Tugas Akhir (TA)</td>
                           <td>:</td>
-                          <td>Rp. <?= $mahasiswa['ta']; ?></td>
+                          <td>Rp. <?= number_format($mahasiswa['ta'], '0', ',', '.'); ?></td>
                         </tr>
                         <tr>
                           <td>8.</td>
                           <td>Perpanjang TA</td>
                           <td>:</td>
-                          <td>Rp. <?= $mahasiswa['pta']; ?></td>
+                          <td>Rp. <?= number_format($mahasiswa['pta'], '0', ',', '.'); ?></td>
                         </tr>
                         <tr>
                           <td>9.</td>
                           <td>SPP</td>
                           <td>:</td>
-                          <td>Rp. <?= $mahasiswa['spp']; ?></td>
+                          <td>Rp. <?= number_format($mahasiswa['spp'], '0', ',', '.'); ?></td>
                         </tr>
                         <tr>
                           <td>10.</td>
                           <td>Denda</td>
                           <td>:</td>
-                          <td>Rp. <?= $mahasiswa['denda']; ?></td>
+                          <td>Rp. <?= number_format($mahasiswa['denda'], '0', ',', '.'); ?></td>
                         </tr>
                       </tbody>
                     <?php endif; ?>
@@ -221,7 +221,7 @@
                     <tr class="h4">
                       <th style="width: 30%;"></th>
                       <th style="width:25%">Total</th>
-                      <td>: Rp. <?= $mahasiswa['jumlah']; ?></td>
+                      <td>: Rp. <?= number_format($mahasiswa['jumlah'], '0', ',', '.'); ?></td>
                     </tr>
                   </table>
                 </div>

@@ -54,26 +54,24 @@
               <li class="list-group-item">
                 <div class="form-group row">
                   <label for="jumlah" class="col-sm-5 col-form-label">Total Tagihan:</label>
-                  <div class="col-sm-7">
-                    <input type="number" class="form-control" id="jumlah" name="jumlah" placeholder="Jumlah dibayarkan" value="<?= $pembayaran['jumlah']; ?>" readonly>
-                    <?= form_error('jumlah', '<small class=text-danger pl-3">', '</small>'); ?>
-                  </div>
+                  <label class="mt-2 mb-0 col-sm-5">Rp. <?= number_format($pembayaran['jumlah'], '0', ',', '.'); ?></label>
+                  <!-- <input type="number" class="form-control" id="jumlah" name="jumlah" placeholder="Jumlah dibayarkan" value="<?= $pembayaran['jumlah']; ?>" readonly> -->
+                  <?= form_error('jumlah', '<small class=text-danger pl-3">', '</small>'); ?>
                 </div>
 
                 <div class="form-group row">
                   <label for="status" class="col-sm-5 col-form-label">Status Pembayaran:</label>
-                  <div class="col-sm-7">
-                    <div class="icheck-success d-inline">
-                      <input type="radio" name="rStatus" value="1" id="radioSuccess1">
-                      <label for="radioSuccess1" class="text-success mr-5">accept
-                      </label>
-                    </div>
-                    <div class="icheck-danger d-inline">
-                      <input type="radio" name="rStatus" value="2" id="radioDanger1">
-                      <label for="radioDanger1" class="text-danger">reject
-                      </label>
-                    </div>
+                  <div class="icheck-success d-inline col-sm-3">
+                    <input type="radio" name="rStatus" value="1" id="radioSuccess1">
+                    <label for="radioSuccess1" class="text-success mr-5">accept
+                    </label>
                   </div>
+                  <div class="icheck-danger d-inline col-sm-2">
+                    <input type="radio" name="rStatus" value="2" id="radioDanger1">
+                    <label for="radioDanger1" class="text-danger">reject
+                    </label>
+                  </div>
+
                 </div>
 
               </li>

@@ -46,7 +46,6 @@
           <div class="small-box bg-success">
             <div class="inner">
               <h3><span style="font-size: 20px;">Rp.</span> <?= number_format($sumTgh['jumlah'], 0, ',', '.'); ?><span style="font-size: 30px;">,-</span></h3>
-
               <p>Jumlah Tagihan</p>
             </div>
             <div class="icon">

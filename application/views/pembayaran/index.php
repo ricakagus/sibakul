@@ -67,7 +67,7 @@
                       <td><?= $i; ?></td>
                       <td><?= $pby['id_tagihan']; ?></td>
                       <td><?= $pby['nim']; ?></td>
-                      <td><?= $pby['jumlah']; ?></td>
+                      <td>Rp. <?= number_format($pby['jumlah'], '0', ',', '.'); ?></td>
 
                       <td class="project-state">
                         <?php if ($pby['status'] == 0) : ?>
