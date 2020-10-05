@@ -1,0 +1,142 @@
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0 text-dark"><?= $judul; ?></h1>
+        </div><!-- /.col -->
+        <!-- <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active">Starter Page</li>
+          </ol>
+        </div> -->
+        <!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </div>
+  <!-- /.content-header -->
+
+  <!-- Main content -->
+  <div class="content">
+    <div class="container-fluid">
+
+      <div class="row">
+        <div class="col-md-10">
+          <?= $this->session->flashdata('pesan'); ?>
+          <div class="card card-primary card-outline">
+            <div class="card-header">
+
+              <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-sm">
+                <i class="fas fa-plus"></i>
+                Tambah Data Tagihan
+              </button>
+              <a class="btn btn-success btn-sm" href="<?= base_url('admin/uploadTagihan'); ?>" role="button">
+                <i class="fas fa-upload"></i>
+                Import Data Tagihan
+              </a>
+
+              <div class="float-right">
+                <form class="form-inline ml-3" action="<?= base_url('admin/tagihan'); ?>" method="POST">
+                  <div class="input-group input-group-sm">
+                    <input class="form-control" type="search" placeholder="Search" aria-label="Search" name="keyword" autocomplete="off" autofocus>
+                    <div class="input-group-append">
+                      <input class="btn btn-primary" type="submit" name="cari" value="Cari">
+                      <!-- <i class="fas fa-search"></i> -->
+                      </input>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="card-body p-0">
+
+              <table id="example2" class="table table-hover projects table-sm table-striped">
+                <thead>
+                  <tr class="bg-dark">
+                    <th style="width: 1%">#</th>
+                    <th style="width: 16%">ID Tagihan</th>
+                    <th style="width: 10%">NIM</th>
+                    <th style="width: 30%">Nama</th>
+                    <th style="width: 14%">Jumlah</th>
+                    <th style="width: 8%" class="text-center">Status</th>
+                    <th style="width: 10%">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                  <?php foreach ($tagihan as $tgh) : ?>
+                    <tr>
+                      <td><?= ++$start; ?></td>
+                      <td><?= $tgh['id_tagihan']; ?></td>
+                      <td><?= $tgh['nim']; ?></td>
+                      <td><?= $tgh['nama']; ?></td>
+                      <td class="float-right">Rp. <?= $tgh['jumlah']; ?></td>
+
+                      <td class="project-state">
+                        <?php if ($tgh['status'] == 0) : ?>
+                          <span class="badge badge-success">bill</span>
+                        <?php elseif ($tgh['status'] == 2) : ?>
+                          <span class="badge badge-danger">rejected</span>
+                        <?php else : ?>
+                          <a href="<?= base_url('admin/cek_pembayaran/') . $tgh['id_tagihan']; ?>" class="badge badge-warning">paid</a>
+                        <?php endif; ?>
+                      </td>
+                      <td class="project-actions text-left">
+                        <a class="btn btn-primary btn-sm " href="<?= base_url('admin/detailTagihan/') . $tgh['nim']; ?>">
+                          <i class="fas fa-eye"></i>
+                        </a>
+                        <!-- <a class="btn btn-info btn-sm" href="#">
+                          <i class="fas fa-pencil-alt"></i>
+                        </a> -->
+
+                        <a class="btn btn-danger btn-sm" href="<?= base_url('admin/hapusTagihan/') . $tgh['nim']; ?>" onclick="return confirm('hapus data, yakin?');">
+                          <i class="fas fa-trash-alt"></i>
+                        </a>
+                      </td>
+                    </tr>
+                  <?php endforeach; ?>
+                </tbody>
+              </table>
+              <br>
+              <nav aria-label="Page navigation example">
+                <?= $this->pagination->create_links(); ?>
+              </nav>
+            </div>
+          </div>
+        </div>
+
+
+
+
+      </div> <!-- end Row -->
+
+      <div class="modal fade" id="modal-sm">
+        <div class="modal-dialog modal-sm">
+          <div class="modal-content bg-secondary">
+
+            <div class="modal-body">
+              <form class="form-inline ml-4" action="<?= base_url('admin/cariMahasiswa/'); ?>" method="POST">
+                <div class="input-group">
+                  <input class="form-control" type="search" placeholder="Search NIM..." aria-label="Search" name="searchNIM">
+                  <div class="input-group-append">
+                    <button class="btn btn-primary" type="submit">
+                      <i class="fas fa-search"></i>
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+    </div><!-- /.container-fluid -->
+  </div>
+  <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
