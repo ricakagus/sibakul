@@ -108,6 +108,10 @@
                         <label for="cuti" class="ml-1 mb-0 small">Kerja Praktek (KP)</label>
                         <input type="text" class="form-control" id="kp" name="kp" placeholder="0">
                       </div>
+                      <div class="form-group">
+                        <label for="cuti" class="ml-1 mb-0 small">Denda</label>
+                        <input type="text" class="form-control" id="denda" name="denda" placeholder="0">
+                      </div>
                     </div>
                     <div class="col-md-6">
                       <div class="form-group">
@@ -127,8 +131,8 @@
                         <input type="text" class="form-control" id="spp" name="spp" placeholder="0">
                       </div>
                       <div class="form-group">
-                        <label for="cuti" class="ml-1 mb-0 small">Denda</label>
-                        <input type="text" class="form-control" id="denda" name="denda" placeholder="0">
+                        <label for="cuti" class="ml-1 mb-0 small">Konversi</label>
+                        <input type="text" class="form-control" id="konversi" name="konversi" placeholder="0">
                       </div>
                     </div>
                   </div>

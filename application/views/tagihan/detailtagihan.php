@@ -121,6 +121,12 @@
                       <td>:</td>
                       <td>Rp. <?= number_format($mahasiswa['kp'], '0', ',', '.'); ?></td>
                     </tr>
+                    <tr>
+                      <td>6.</td>
+                      <td>Denda</td>
+                      <td>:</td>
+                      <td>Rp. <?= number_format($mahasiswa['denda'], '0', ',', '.'); ?></td>
+                    </tr>
                   </tbody>
                 </table>
               </div>
@@ -135,34 +141,34 @@
                   </thead>
                   <tbody>
                     <tr>
-                      <td>6.</td>
+                      <td>7.</td>
                       <td>Perpanjang KP</td>
                       <td>:</td>
                       <td>Rp. <?= number_format($mahasiswa['pkp'], '0', ',', '.'); ?></td>
                     </tr>
                     <tr>
-                      <td>7.</td>
+                      <td>8.</td>
                       <td>Tugas Akhir (TA)</td>
                       <td>:</td>
                       <td>Rp. <?= number_format($mahasiswa['ta'], '0', ',', '.'); ?></td>
                     </tr>
                     <tr>
-                      <td>8.</td>
+                      <td>9.</td>
                       <td>Perpanjang TA</td>
                       <td>:</td>
                       <td>Rp. <?= number_format($mahasiswa['pta'], '0', ',', '.'); ?></td>
                     </tr>
                     <tr>
-                      <td>9.</td>
+                      <td>10.</td>
                       <td>SPP</td>
                       <td>:</td>
                       <td>Rp. <?= number_format($mahasiswa['spp'], '0', ',', '.'); ?></td>
                     </tr>
                     <tr>
-                      <td>10.</td>
-                      <td>Denda</td>
+                      <td>11.</td>
+                      <td>Konversi</td>
                       <td>:</td>
-                      <td>Rp. <?= number_format($mahasiswa['denda'], '0', ',', '.'); ?></td>
+                      <td>Rp. <?= number_format($mahasiswa['konversi'], '0', ',', '.'); ?></td>
                     </tr>
                   </tbody>
                 </table>

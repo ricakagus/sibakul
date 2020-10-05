@@ -53,10 +53,10 @@
                 <thead>
                   <tr>
                     <th style="width: 1%">#</th>
-                    <th style="width: 18%">ID Tagihan</th>
-                    <th style="width: 14%">NIM</th>
+                    <th style="width: 10%">ID Tagihan</th>
+                    <th style="width: 10%">NIM</th>
                     <th style="width: 10%">Jumlah</th>
-                    <th style="width: 8%" class="text-center">Status</th>
+                    <th style="width: 10%" class="text-center">Status</th>
                     <!-- <th style="width: 10%">Action</th> -->
                   </tr>
                 </thead>
@@ -67,7 +67,7 @@
                       <td><?= $i; ?></td>
                       <td><?= $pby['id_tagihan']; ?></td>
                       <td><?= $pby['nim']; ?></td>
-                      <td>Rp. <?= number_format($pby['jumlah'], '0', ',', '.'); ?></td>
+                      <td class="">Rp. <?= number_format($pby['jumlah'], '0', ',', '.'); ?></td>
 
                       <td class="project-state">
                         <?php if ($pby['status'] == 0) : ?>

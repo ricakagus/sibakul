@@ -73,7 +73,7 @@
                       <td><?= $tgh['id_tagihan']; ?></td>
                       <td><?= $tgh['nim']; ?></td>
                       <td><?= $tgh['nama']; ?></td>
-                      <td class="float-right">Rp. <?= number_format($tgh['jumlah'], '0', ',', '.'); ?></td>
+                      <td class="text-right">Rp. <?= number_format($tgh['jumlah'], '0', ',', '.'); ?></td>
 
                       <td class="project-state">
                         <?php if ($tgh['status'] == 0) : ?>
