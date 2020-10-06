@@ -39,7 +39,7 @@
               </a>
 
               <div class="float-right">
-                <form class="form-inline ml-3" action="<?= base_url('admin/tagihan'); ?>" method="POST">
+                <form class="form-inline ml-3 mb-0" action="<?= base_url('admin/tagihan'); ?>" method="POST">
                   <div class="input-group input-group-sm">
                     <input class="form-control" type="search" placeholder="Search" aria-label="Search" name="keyword" autocomplete="off" autofocus>
                     <div class="input-group-append">
@@ -49,6 +49,7 @@
                     </div>
                   </div>
                 </form>
+                <small class="ml-4 mt-0 text-danger " style="font-size: 11px;"><i>pencarian bulan gunakan angka</i></small>
               </div>
             </div>
             <div class="card-body p-0">
@@ -57,7 +58,7 @@
                 <thead>
                   <tr class="bg-dark">
                     <th style="width: 1%">#</th>
-                    <th style="width: 16%">ID Tagihan</th>
+                    <th style="width: 16%">Periode Tagihan</th>
                     <th style="width: 10%">NIM</th>
                     <th style="width: 30%">Nama</th>
                     <th style="width: 14%">Jumlah</th>
@@ -70,7 +71,18 @@
                   <?php foreach ($tagihan as $tgh) : ?>
                     <tr>
                       <td><?= ++$start; ?></td>
-                      <td><?= $tgh['id_tagihan']; ?></td>
+                      <!-- <td><?= $tgh['id_tagihan']; ?></td> -->
+                      <?php
+                      foreach ($bulan as $b) :
+                        if ($tgh['bulan'] == $b['id']) :
+                          $namabulan = $b['bulan'];
+                        endif;
+                      endforeach;
+                      ?>
+                      <td>
+                        <?= $namabulan . ' ' . $tgh['tahun']; ?>
+                      </td>
+
                       <td><?= $tgh['nim']; ?></td>
                       <td><?= $tgh['nama']; ?></td>
                       <td class="text-right">Rp. <?= number_format($tgh['jumlah'], '0', ',', '.'); ?></td>

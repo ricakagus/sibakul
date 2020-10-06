@@ -291,11 +291,16 @@ class Admin extends CI_Controller
       $data['keyword'] = $this->session->userdata('keyword');
     }
 
+
+
     $config['base_url'] = base_url('admin/tagihan');
+
+
     $this->db->like('id_tagihan', $data['keyword']);
     $this->db->or_like('nim', $data['keyword']);
     $this->db->or_like('nama', $data['keyword']);
     $this->db->or_like('status', $data['keyword']);
+    $this->db->or_like('tahun', $data['keyword']);
     $this->db->from('tb_tagihan');
 
 
@@ -336,6 +341,8 @@ class Admin extends CI_Controller
 
     $data['start'] = $this->uri->segment(3);
     $data['tagihan'] = $this->Admin_model->getDataPageTagihan($config['per_page'], $data['start'], $data['keyword']);
+
+    $data['bulan'] = $this->db->get('tb_bulan')->result_array();
 
     $this->load->view('templates/header', $data);
     $this->load->view('templates/topbar');
