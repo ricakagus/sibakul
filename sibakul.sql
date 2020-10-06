@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 05, 2020 at 10:57 AM
+-- Generation Time: Oct 06, 2020 at 11:19 AM
 -- Server version: 10.1.37-MariaDB
 -- PHP Version: 7.1.25
 
@@ -119,7 +119,7 @@ INSERT INTO `tb_pembayaran` (`id`, `id_tagihan`, `nim`, `jumlah`, `tgl_bayar`, `
 (1, '2020083219001', '3219001', 1450000, '1598409240', '2020083219001.jpg', 1),
 (2, '2020081219001', '1219001', 1010000, '1598495759', '20200812190011.jpg', 1),
 (3, '2020091216008', '1216008', 1800000, '1600534220', '20200912160081.jpg', 1),
-(4, '2020091218001', '1218001', 2260000, '1600534901', '2020091218001.jpg', 2);
+(4, '2020091218001', '1218001', 2260000, '1600534901', '2020091218001.jpg', 0);
 
 -- --------------------------------------------------------
 
@@ -134,6 +134,7 @@ CREATE TABLE `tb_req_tagihan` (
   `nim` varchar(11) NOT NULL,
   `nama` varchar(128) NOT NULL,
   `pesan_req` text NOT NULL,
+  `pesan_resp` text NOT NULL,
   `status` int(1) NOT NULL,
   `sisa_req` int(11) NOT NULL,
   `date_resp` int(11) NOT NULL
@@ -143,11 +144,11 @@ CREATE TABLE `tb_req_tagihan` (
 -- Dumping data for table `tb_req_tagihan`
 --
 
-INSERT INTO `tb_req_tagihan` (`id`, `date_req`, `id_tagihan`, `nim`, `nama`, `pesan_req`, `status`, `sisa_req`, `date_resp`) VALUES
-(3, 1600512899, '2020091216008', '1216008', 'PETRUS RAFAEL DHAE', 'saya hanya bisa bayar 1 juta', 1, 0, 1600512940),
-(4, 1600523341, '2020091219012', '1219012', 'ALEXANDER DINGU JAGA MEHA', 'saya mau bayar 2 juta langsung', 1, 1, 1600523437),
-(5, 1601880197, '2020091218004', '1218004', 'DAVID UMBU NGAILU', 'maaf bu saya cuma bisa bayar 200 ribu', 2, 0, 1601880391),
-(6, 1601880603, '2020091218001', '1218001', 'MARTEN UMBU LOLO', 'bu... tolong lah bu...', 1, 1, 1601880871);
+INSERT INTO `tb_req_tagihan` (`id`, `date_req`, `id_tagihan`, `nim`, `nama`, `pesan_req`, `pesan_resp`, `status`, `sisa_req`, `date_resp`) VALUES
+(3, 1600512899, '2020091216008', '1216008', 'PETRUS RAFAEL DHAE', 'saya hanya bisa bayar 1 juta', '', 1, 0, 1600512940),
+(4, 1600523341, '2020091219012', '1219012', 'ALEXANDER DINGU JAGA MEHA', 'saya mau bayar 2 juta langsung', '', 1, 1, 1600523437),
+(5, 1601880197, '2020091218004', '1218004', 'DAVID UMBU NGAILU', 'maaf bu saya cuma bisa bayar 200 ribu hakjs ahsk akjhskja kjhaksj haksja kjhaskj haksja kjahskja kjahskja', '', 2, 0, 1601880391),
+(16, 1601967319, '2020091218002', '1218002', 'IGNASIUS ALANS TUNJUNG', 'bu saya mau bayar 3 juta', '', 1, 0, 1601967329);
 
 -- --------------------------------------------------------
 
@@ -244,7 +245,6 @@ INSERT INTO `tb_tagihan` (`id`, `id_tagihan`, `created`, `bulan`, `tahun`, `nim`
 (11, '2020091219012', 1600243556, '9', 2020, '1219012', 'ALEXANDER DINGU JAGA MEHA', 1350000, 0, 600000, 150000, 0, 0, 0, 0, 0, 550000, 0, 50000, 0),
 (13, '2020091216015', 1600533212, '9', 2020, '1216015', 'MIKIRON WEYA', 1520000, 500000, 300000, 0, 0, 0, 0, 0, 0, 700000, 0, 20000, 0),
 (14, '2020101218001', 1600533212, '9', 2020, '1218001', 'MARTEN UMBU LOLO', 1000000, 500000, 0, 0, 0, 0, 0, 0, 0, 500000, 0, 0, 0),
-(15, '2020091218002', 1600533212, '9', 2020, '1218002', 'IGNASIUS ALANS TUNJUNG', 1780000, 0, 0, 0, 0, 0, 0, 1300000, 0, 450000, 0, 30000, 0),
 (16, '2020091218003', 1600533212, '9', 2020, '1218003', 'FLORIDA DOWA', 1680000, 500000, 500000, 150000, 0, 0, 0, 0, 0, 500000, 0, 30000, 0),
 (17, '2020091218004', 1600533212, '9', 2020, '1218004', 'DAVID UMBU NGAILU', 500000, 0, 0, 0, 0, 0, 0, 0, 0, 500000, 0, 0, 0),
 (18, '2020091218006', 1600533212, '9', 2020, '1218006', 'MARSELINUS MONGGO', 1220000, 0, 700000, 0, 0, 0, 0, 0, 0, 500000, 0, 20000, 0),
@@ -605,7 +605,7 @@ ALTER TABLE `tb_pembayaran`
 -- AUTO_INCREMENT for table `tb_req_tagihan`
 --
 ALTER TABLE `tb_req_tagihan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `tb_role`
