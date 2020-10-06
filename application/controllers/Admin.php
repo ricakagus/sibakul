@@ -709,31 +709,52 @@ class Admin extends CI_Controller
     $this->load->view('templates/footer');
   }
 
-  public function approveReq($idtagihan)
+  public function responReq($idtagihan)
   {
     $reqTagihan = $this->db->get_where('tb_req_tagihan', ['id_tagihan' => $idtagihan])->row_array();
     $sisa = $reqTagihan['sisa_req'] - 1;
 
     $this->db->where('id_tagihan', $idtagihan);
-    $this->db->set('status', 1);
+    if ($this->input->post('btn_resp') == '1') :
+      $this->db->set('status', 1);
+    elseif ($this->input->post('btn_resp') == '2') :
+      $this->db->set('status', 2);
+    endif;
     $this->db->set('sisa_req', $sisa);
     $this->db->set('date_resp', time());
+    $this->db->set('pesan_resp', $this->input->post('inputRespon'));
     $this->db->update('tb_req_tagihan');
 
     redirect('admin/reqTagihan');
   }
 
-  public function rejectReq($idtagihan)
-  {
-    $reqTagihan = $this->db->get_where('tb_req_tagihan', ['id_tagihan' => $idtagihan])->row_array();
-    $sisa = $reqTagihan['sisa_req'] - 1;
+  // public function approveReq($idtagihan)
+  // {
+  //   $reqTagihan = $this->db->get_where('tb_req_tagihan', ['id_tagihan' => $idtagihan])->row_array();
+  //   $sisa = $reqTagihan['sisa_req'] - 1;
 
-    $this->db->where('id_tagihan', $idtagihan);
-    $this->db->set('status', 2);
-    $this->db->set('sisa_req', $sisa);
-    $this->db->set('date_resp', time());
-    $this->db->update('tb_req_tagihan');
+  //   $this->db->where('id_tagihan', $idtagihan);
+  //   $this->db->set('status', 1);
+  //   $this->db->set('sisa_req', $sisa);
+  //   $this->db->set('date_resp', time());
+  //   $this->db->set('pesan_resp', $this->input->post('inputRespon'));
+  //   $this->db->update('tb_req_tagihan');
 
-    redirect('admin/reqTagihan');
-  }
+  //   redirect('admin/reqTagihan');
+  // }
+
+  // public function rejectReq($idtagihan)
+  // {
+  //   $reqTagihan = $this->db->get_where('tb_req_tagihan', ['id_tagihan' => $idtagihan])->row_array();
+  //   $sisa = $reqTagihan['sisa_req'] - 1;
+
+  //   $this->db->where('id_tagihan', $idtagihan);
+  //   $this->db->set('status', 2);
+  //   $this->db->set('sisa_req', $sisa);
+  //   $this->db->set('date_resp', time());
+  //   $this->db->set('pesan_resp', $this->input->post('inputRespon'));
+  //   $this->db->update('tb_req_tagihan');
+
+  //   redirect('admin/reqTagihan');
+  // }
 } // end controler

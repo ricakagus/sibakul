@@ -24,7 +24,7 @@
     <div class="container-fluid">
 
       <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-9">
           <?= $this->session->flashdata('pesan'); ?>
           <div class="card card-primary card-outline">
             <div class="card-header">
@@ -44,17 +44,16 @@
             </div>
             <div class="card-body p-0">
 
-              <table id="example2" class="table table-hover projects table-bordered ">
+              <table id="example2" class="table table-hover projects table-bordered table-sm ">
                 <thead>
                   <tr class="bg-dark">
                     <th style="width: 1%;">#</th>
                     <th style="width: 10%;">Date Req</th>
                     <th style="width: 10%;">ID Tagihan</th>
-                    <th style="width: 20%;">Nama</th>
-                    <th style="width: 30%;">Pesan</th>
-                    <th style="width: 9%;">Sisa Req</th>
-                    <th class="text-center" style="width:1%">Status</th>
-                    <th style="width: 12%;">Action</th>
+                    <th style="width: 40%;">Nama</th>
+                    <th style="width: 10%;">Sisa Req</th>
+                    <th class="text-center">Status</th>
+                    <th class="text-center">Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -65,7 +64,6 @@
                       <td><?= date('d/m/Y', $rtg['date_req']); ?></td>
                       <td><?= $rtg['id_tagihan']; ?></td>
                       <td><?= $rtg['nama']; ?></td>
-                      <td><?= $rtg['pesan_req']; ?></td>
                       <td><?= $rtg['sisa_req']; ?></td>
                       <td>
                         <?php if ($rtg['status'] == 0) : ?>
@@ -76,7 +74,7 @@
                           <span class="badge badge-danger m-0">reject</span>
                         <?php endif; ?>
                       </td>
-                      <td class="project-actions text-left">
+                      <td class="project-actions text-right">
                         <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-default<?= $rtg['id_tagihan']; ?>">
                           <i class="fas fa-eye"></i>
                         </button>
@@ -114,38 +112,54 @@
               </button>
             </div>
             <div class="modal-body">
-              <div class="row">
-                <div class="col-md">
-                  <div class="form-group">
-                    <label for="inputNama">Nama</label>
-                    <input type="text" class="form-control" id="inputNama" placeholder="nama" value="<?= $rtg['nama']; ?>" readonly>
+              <form action="<?= base_url('admin/responReq/') . $rtg['id_tagihan']; ?>" method="POST">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-md">
+                        <div class="form-group m-0">
+                          <label for="inputNama">Nama</label>
+                          <input type="text" class="form-control" id="inputNama" placeholder="nama" value="<?= $rtg['nama']; ?>" readonly>
+                        </div>
+                        <div class="form-group m-0">
+                          <label>Pesan Pengajuan</label>
+                          <textarea class="form-control" rows="3" placeholder="Enter ..." readonly><?= $rtg['pesan_req']; ?></textarea>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <div class="form-group">
-                    <label>Pesan Pengajuan</label>
-                    <textarea class="form-control" rows="3" placeholder="Enter ..." readonly><?= $rtg['pesan_req']; ?></textarea>
+                </div>
+                <div class="card">
+                  <div class="card-body">
+                    <div class="form-group m-0">
+                      <label>Respon Pengajuan</label>
+                      <textarea class="form-control" rows="3" placeholder="Enter ..." name="inputRespon"><?= $rtg['pesan_resp']; ?></textarea>
+                    </div>
                   </div>
                 </div>
 
-              </div>
-              <div class="row d-flex justify-content-around">
-                <div class="col-4 ">
-                  <a href="<?= base_url('admin/rejectReq/') . $rtg['id_tagihan']; ?>" type="button" class="btn btn-danger btn-sm btn-block"><i class="fas fa-fw fa-times"></i> Reject</a>
-                </div>
-                <div class="col-4">
-                  <a href="<?= base_url('admin/approveReq/') . $rtg['id_tagihan']; ?>" type="button" class="btn btn-primary btn-sm btn-block"><i class="fas fa-fw fa-check"></i> Approve</a>
-                </div>
-              </div>
+                <?php if ($rtg['status'] == '0') : ?>
+                  <div class="row d-flex justify-content-around">
+                    <div class="col-4 ">
+                      <button type="submit" class="btn btn-danger btn-sm btn-block" name="btn_resp" value="2"><i class="fas fa-fw fa-times"></i> Reject</button>
+                      <!-- <a href="<?= base_url('admin/rejectReq/') . $rtg['id_tagihan']; ?>" type="button" class="btn btn-danger btn-sm btn-block"><i class="fas fa-fw fa-times"></i> Reject</a> -->
+                    </div>
+                    <div class="col-4">
+                      <button type="submit" class="btn btn-primary btn-sm btn-block" name="btn_resp" value="1"><i class="fas fa-fw fa-check"></i> Approve</button>
+                      <!-- <a href="<?= base_url('admin/approveReq/') . $rtg['id_tagihan']; ?>" type="button" class="btn btn-primary btn-sm btn-block"><i class="fas fa-fw fa-check"></i> Approve</a> -->
+                    </div>
+                  </div>
+                <?php endif; ?>
+              </form>
             </div>
             <div class="modal-footer float-right">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">close</button>
-
             </div>
           </div>
           <!-- /.modal-content -->
         </div>
         <!-- /.modal-dialog -->
       </div>
-
       <?php $i++; ?>
     <?php endforeach; ?>
     <!-- Akhir Modal View -->
