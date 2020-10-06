@@ -32,7 +32,16 @@
             <div class="card-body">
               <p><b>SIBAKUL</b> adalah Sistem Informasi Bayar Kuliah</p>
               <p>SIBAKUL akan memberikan anda informasi tentang besaran tagihan biaya kuliah anda pribadi. Selain itu juga SIBAKUL dapat anda gunakan untuk melaporkan bahwa anda telah membayar tagihan biaya kuliah dengan cara mengunggah (upload) bukti setoran bank melalui menu Bayar Kuliah</p>
-              <p>Untuk memulai aplikasi ini silahkan klik menu dipojok kiri atas.</p>
+              <p><b>Pentunjuk:</b></p>
+              <ul>
+                <li>Untuk memulai aplikasi ini silahkan klik <b>Menu</b> dipojok kiri atas.</li>
+                <li>Untuk melihat tagihan anda pilih menu <b>Tagihan</b>.</li>
+                <li>Untuk mengupload bukti pembayaran kuliah pilih <b>Bayar Kuliah</b>.</li>
+                <li>Untuk melihat dan mengubah profil anda pilih menu <b>Profil Saya</b>.</li>
+                <li>Untuk mengganti password anda pilih menu <b>Ganti Password</b>.</li>
+                <li>Untuk keluar dari aplikasi ini (Sign Out) pilih teks <b>Keluar</b> di pojok kanan atas.</li>
+              </ul>
+
               <p>~<b>Terima Kasih</b>~</p>
               <a href="www.stmikbandungbali.ac.id">STMIK Bandung Bali</a>
             </div>

@@ -137,7 +137,7 @@ class Mahasiswa extends CI_Controller
         }
       }
     }
-  } // end function bayar kuliah
+  } // end function bayar kuliah 
 
   public function inputReqTagihan()
   {
@@ -162,6 +162,7 @@ class Mahasiswa extends CI_Controller
         'nama' => $this->input->post('nama'),
         'pesan_req' => $this->input->post('pesan_req'),
         'status' => 0,
+        'sisa_req' => 2,
         'date_resp' => 0
       ];
       $this->db->insert('tb_req_tagihan', $data);
@@ -192,7 +193,7 @@ class Mahasiswa extends CI_Controller
         'nama' => $this->input->post('nama'),
         'pesan_req' => $this->input->post('pesan_req'),
         'status' => 0,
-        'sisa_req' => 2,
+        // 'sisa_req' => 0,
         'date_resp' => 0
       ];
       $this->db->where('id_tagihan', $idtagihan);

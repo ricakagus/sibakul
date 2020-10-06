@@ -50,10 +50,11 @@
                     <th style="width: 1%;">#</th>
                     <th style="width: 10%;">Date Req</th>
                     <th style="width: 10%;">ID Tagihan</th>
-                    <th style="width: 18%;">Nama</th>
-                    <th style="width: 39%;">Pesan</th>
+                    <th style="width: 20%;">Nama</th>
+                    <th style="width: 30%;">Pesan</th>
+                    <th style="width: 9%;">Sisa Req</th>
                     <th class="text-center" style="width:1%">Status</th>
-                    <th>Action</th>
+                    <th style="width: 12%;">Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -65,13 +66,14 @@
                       <td><?= $rtg['id_tagihan']; ?></td>
                       <td><?= $rtg['nama']; ?></td>
                       <td><?= $rtg['pesan_req']; ?></td>
+                      <td><?= $rtg['sisa_req']; ?></td>
                       <td>
                         <?php if ($rtg['status'] == 0) : ?>
-                          <span class="badge badge-warning">request</span>
+                          <span class="badge badge-warning m-0">request</span>
                         <?php elseif ($rtg['status'] == 1) : ?>
-                          <span class="badge badge-success">approve</span>
+                          <span class="badge badge-success m-0">approve</span>
                         <?php else : ?>
-                          <span class="badge badge-danger">reject</span>
+                          <span class="badge badge-danger m-0">reject</span>
                         <?php endif; ?>
                       </td>
                       <td class="project-actions text-left">

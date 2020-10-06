@@ -711,9 +711,12 @@ class Admin extends CI_Controller
 
   public function approveReq($idtagihan)
   {
+    $reqTagihan = $this->db->get_where('tb_req_tagihan', ['id_tagihan' => $idtagihan])->row_array();
+    $sisa = $reqTagihan['sisa_req'] - 1;
+
     $this->db->where('id_tagihan', $idtagihan);
     $this->db->set('status', 1);
-    $this->db->set('sisa_req', 1);
+    $this->db->set('sisa_req', $sisa);
     $this->db->set('date_resp', time());
     $this->db->update('tb_req_tagihan');
 
@@ -722,8 +725,12 @@ class Admin extends CI_Controller
 
   public function rejectReq($idtagihan)
   {
+    $reqTagihan = $this->db->get_where('tb_req_tagihan', ['id_tagihan' => $idtagihan])->row_array();
+    $sisa = $reqTagihan['sisa_req'] - 1;
+
     $this->db->where('id_tagihan', $idtagihan);
     $this->db->set('status', 2);
+    $this->db->set('sisa_req', $sisa);
     $this->db->set('date_resp', time());
     $this->db->update('tb_req_tagihan');
 

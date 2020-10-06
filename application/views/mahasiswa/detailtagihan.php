@@ -239,37 +239,57 @@
                 <div class="col-4">
                   <?php if (!$mahasiswa) : ?>
                     <button class="btn btn-warning btn-block float-left" disabled><i class=" far fa-fw fa-envelope "></i> Ajukan Perubahan</button>
-                  <?php else : ?>
-                    <?php
-                    if ($reqTagihan) :
-                      if ($reqTagihan['sisa_req'] > 0) :
-                        if ($reqTagihan['status'] == '0') :
+                    <?php else :
+                    if ($reqTagihan) : // ada data reqTagihan
+                      $sisa = $reqTagihan['sisa_req'];
+                      $status = $reqTagihan['status'];
+                      if ($sisa == '2' and $status == '0') : // sisa 1, status 0 
                     ?>
-                          <a href="<?= base_url('mahasiswa/editReqTagihan/') . $reqTagihan['id_tagihan'] ?>" class="btn btn-warning btn-block float-left"><i class="far fa-fw fa-envelope"></i> Ajuan Perubahan</a>
-                        <?php
-                        elseif ($reqTagihan['status'] == '1') :
-                        ?>
-                          <a href="<?= base_url('mahasiswa/viewReqTagihan/') . $reqTagihan['id_tagihan'] ?>" class="btn btn-success btn-block float-left"><i class="far fa-fw fa-envelope"></i> Disetujui</a>
-                        <?php
-                        else :
-                        ?>
-                          <a href="<?= base_url('mahasiswa/editReqTagihan/') . $reqTagihan['id_tagihan'] ?>" class="btn btn-danger btn-block float-left"><i class="far fa-fw fa-envelope"></i> Ditolak</a>
-                      <?php
-                        endif;
-                      else :
-                        echo '<small class="text-danger font-italic"><i class="fas fa-times"></i> tidak dapat melakukan pengajuan tagihan </small>';
-                      endif;
-                    else :
+                        <a href="<?= base_url('mahasiswa/editReqTagihan/') . $reqTagihan['id_tagihan'] ?>" class="btn btn-warning btn-block float-left"><i class="far fa-fw fa-envelope"></i> Ajukan Perubahan</a>
+                        <small class="text-dark ml-2">sedang diproses, batas ajuan tersisa <?= $sisa; ?> kali</small>
+                      <?php elseif ($sisa == '2' and $status == '1') : // sisa 1, status 1 
                       ?>
-                      <a href="<?= base_url('mahasiswa/inputReqTagihan') ?>" class="btn btn-warning btn-block float-left"><i class="far fa-fw fa-envelope"></i> Ajukan Perubahan</a>
-                    <?php
-                    endif;
-
+                        <a href="<?= base_url('mahasiswa/editReqTagihan/') . $reqTagihan['id_tagihan'] ?>" class="btn btn-success btn-block float-left"><i class="far fa-fw fa-envelope"></i> Ajukan Perubahan</a>
+                        <small class="text-success ml-2">ajuan disetujui batas ajuan tersisa <?= $sisa; ?> kali</small>
+                      <?php elseif ($sisa == '2' and $status == '2') :  // sisa 1, status 2 
+                      ?>
+                        <a href="<?= base_url('mahasiswa/editReqTagihan/') . $reqTagihan['id_tagihan'] ?>" class="btn btn-success btn-block float-left"><i class="far fa-fw fa-envelope"></i> Ajukan Perubahan</a>
+                        <small class="text-danger ml-2">ajuan ditolak batas ajuan tersisa <?= $sisa; ?> kali</small>
+                      <?php
+                      elseif ($sisa == '1' and $status == '0') : // sisa 1, status 0
+                      ?>
+                        <a href="<?= base_url('mahasiswa/editReqTagihan/') . $reqTagihan['id_tagihan'] ?>" class="btn btn-warning btn-block float-left"><i class="far fa-fw fa-envelope"></i> Ajukan Perubahan</a>
+                        <small class="text-dark ml-2">sedang diproses, batas ajuan tersisa 2 kali</small>
+                      <?php elseif ($sisa == '1' and $status == '1') : // sisa 1, status 1 
+                      ?>
+                        <a href="<?= base_url('mahasiswa/editReqTagihan/') . $reqTagihan['id_tagihan'] ?>" class="btn btn-success btn-block float-left"><i class="far fa-fw fa-envelope"></i> Ajukan Perubahan</a>
+                        <small class="text-success ml-2">ajuan disetujui batas ajuan tersisa <?= $sisa; ?> kali</small>
+                      <?php elseif ($sisa == '1' and $status == '2') :  // sisa 1, status 2 
+                      ?>
+                        <a href="<?= base_url('mahasiswa/editReqTagihan/') . $reqTagihan['id_tagihan'] ?>" class="btn btn-success btn-block float-left"><i class="far fa-fw fa-envelope"></i> Ajukan Perubahan</a>
+                        <small class="text-danger ml-2">ajuan ditolak batas ajuan tersisa <?= $sisa; ?> kali</small>
+                      <?php elseif ($sisa == '0' and $status == '0') : // sisa 0, status 0 
+                      ?>
+                        <a href="<?= base_url('mahasiswa/editReqTagihan/') . $reqTagihan['id_tagihan'] ?>" class="btn btn-warning btn-block float-left"><i class="far fa-fw fa-envelope"></i> Ajukan Perubahan</a>
+                        <small class="text-success ml-2">batas ajuan tersisa <?= $sisa; ?> kali</small>
+                      <?php elseif ($sisa == '0' and $status == '1') : // sisa 0, status 1 
+                      ?>
+                        <button class="btn btn-secondary btn-block float-left" disabled><i class="far fa-fw fa-envelope"></i>Ajukan Perubahan</button>
+                        <small class="text-success ml-2">ajuan disetujui batas ajuan tersisa <?= $sisa; ?> kali</small>
+                      <?php elseif ($sisa == '0' and $status == '2') :  // sisa 0, status 2 
+                      ?>
+                        <button class="btn btn-secondary btn-block float-left" disabled><i class="far fa-fw fa-envelope"></i>Ajukan Perubahan</button>
+                        <small class="text-danger ml-2">ajuan ditolak batas ajuan tersisa <?= $sisa; ?> kali</small>
+                      <?php endif; ?>
+                    <?php else :
+                      // sisa null, status null
                     ?>
-
-
-                  <?php endif; ?>
-
+                      <a href="<?= base_url('mahasiswa/inputReqTagihan/') . $reqTagihan['id_tagihan'] ?>" class="btn btn-success btn-block float-left"><i class="far fa-fw fa-envelope"></i> Ajukan Perubahan</a>
+                      <small class="text-success ml-2">batas ajuan tersisa 2 kali</small>
+                  <?php
+                    endif;
+                  endif;
+                  ?>
 
                 </div>
                 <div class=" col-4"></div>
