@@ -398,9 +398,10 @@ class Admin extends CI_Controller
       $ta = (int)$this->input->post('ta');
       $pta = (int)$this->input->post('pta');
       $spp = (int)$this->input->post('spp');
+      $konversi = (int)$this->input->post('konversi');
       $denda = (int)$this->input->post('denda');
 
-      $jumlah = $cuti + $dpp + $almamater + $pspt + $kp + $pkp + $ta + $pta + $pta + $spp + $denda;
+      $jumlah = $cuti + $dpp + $almamater + $pspt + $kp + $pkp + $ta + $pta + $pta + $spp + $konversi + $denda;
 
       $data = [
         'id_tagihan' => $data['idTgh'],
@@ -419,6 +420,7 @@ class Admin extends CI_Controller
         'ta' => $ta,
         'pta' => $pta,
         'spp' => $spp,
+        'konversi' => $konversi,
         'denda' => $denda,
         'status' => '0'
       ];
@@ -454,12 +456,19 @@ class Admin extends CI_Controller
       $this->load->view('tagihan/ubahtagihan', $data);
       $this->load->view('templates/footer');
     } else {
-      $jumlah = $this->input->post('cuti') + $this->input->post('dpp') +
-        $this->input->post('almamater') + $this->input->post('pspt') +
-        $this->input->post('kp') + $this->input->post('pkp') +
-        $this->input->post('ta') + $this->input->post('pta') +
-        $this->input->post('spp') + $this->input->post('denda');
+      $cuti = (int)$this->input->post('cuti');
+      $dpp = (int)$this->input->post('dpp');
+      $almamater = (int)$this->input->post('almamater');
+      $pspt = (int)$this->input->post('pspt');
+      $kp = (int)$this->input->post('kp');
+      $pkp = (int)$this->input->post('pkp');
+      $ta = (int)$this->input->post('ta');
+      $pta = (int)$this->input->post('pta');
+      $spp = (int)$this->input->post('spp');
+      $konversi = (int)$this->input->post('konversi');
+      $denda = (int)$this->input->post('denda');
 
+      $jumlah = $cuti + $dpp + $almamater + $pspt + $kp + $pkp + $ta + $pta + $pta + $spp + $konversi + $denda;
       $data = [
         'id_tagihan' => $data['idTgh'],
         'bulan' => $this->input->post('bulan'),
@@ -467,16 +476,17 @@ class Admin extends CI_Controller
         'nim' => $this->input->post('nim'),
         'nama' => $this->input->post('nama'),
         'jumlah' => $jumlah,
-        'cuti' => $this->input->post('cuti'),
-        'dpp' => $this->input->post('dpp'),
-        'almamater' => $this->input->post('almamater'),
-        'pspt' => $this->input->post('pspt'),
-        'kp' => $this->input->post('kp'),
-        'pkp' => $this->input->post('pkp'),
-        'ta' => $this->input->post('ta'),
-        'pta' => $this->input->post('pta'),
-        'spp' => $this->input->post('spp'),
-        'denda' => $this->input->post('denda'),
+        'cuti' => $cuti,
+        'dpp' => $dpp,
+        'almamater' => $almamater,
+        'pspt' => $pspt,
+        'kp' => $kp,
+        'pkp' => $pkp,
+        'ta' => $ta,
+        'pta' => $pta,
+        'spp' => $spp,
+        'konversi' => $konversi,
+        'denda' => $denda,
         'status' => '0'
       ];
 
