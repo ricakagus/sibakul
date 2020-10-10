@@ -52,4 +52,11 @@ class Admin_model extends CI_Model
     }
     return $this->db->get('tb_tagihan', $limit, $start)->result_array();
   }
+
+  public function getTotalTagihanByNIM($nim)
+  {
+    $this->db->select_sum('jumlah');
+    $this->db->where('nim', $nim);
+    return $this->db->get('tb_tagihan')->row_array();
+  }
 }

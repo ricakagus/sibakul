@@ -94,7 +94,7 @@ class Admin extends CI_Controller
     $this->load->view('templates/header', $data);
     $this->load->view('templates/topbar');
     $this->load->view('templates/sidebar', $data);
-    $this->load->view('mahasiswa/index', $data);
+    $this->load->view('mahasiswa/mahasiswa', $data);
     $this->load->view('templates/footer');
   }
 
@@ -284,6 +284,7 @@ class Admin extends CI_Controller
     $data['user'] = $this->db->get_where('tb_user', ['nim' => $this->session->userdata('nim')])->row_array();
     $data['judul'] = 'Master Tagihan';
 
+    $this->session->unset_userdata('keyword'); // untuk mengembalikan seluruh tampilan data
     if ($this->input->post('cari')) {
       $data['keyword'] = $this->input->post('keyword');
       $this->session->set_userdata('keyword', $data['keyword']);
@@ -291,11 +292,7 @@ class Admin extends CI_Controller
       $data['keyword'] = $this->session->userdata('keyword');
     }
 
-
-
     $config['base_url'] = base_url('admin/tagihan');
-
-
     $this->db->like('id_tagihan', $data['keyword']);
     $this->db->or_like('nim', $data['keyword']);
     $this->db->or_like('nama', $data['keyword']);
@@ -342,6 +339,7 @@ class Admin extends CI_Controller
     $data['start'] = $this->uri->segment(3);
     $data['tagihan'] = $this->Admin_model->getDataPageTagihan($config['per_page'], $data['start'], $data['keyword']);
 
+
     $data['bulan'] = $this->db->get('tb_bulan')->result_array();
 
     $this->load->view('templates/header', $data);
@@ -355,12 +353,15 @@ class Admin extends CI_Controller
   {
     $nim = $this->input->post('searchNIM');
     if ($nim) {
+      // cari data mahasiswa dari table suser
       $dataUser =  $this->db->get_where('tb_user', ['nim' => $nim]);
       if ($dataUser->num_rows() > 0) {
-        var_dump($dataUser->row_array()['nim'] . '-' . $dataUser->row_array()['nama']);
-        $tghUser = $this->db->get_where('tb_tagihan', ['nim' => $dataUser->row_array()['nim']]);
+        $userNIM = $dataUser->row_array()['nim']; //ambil data NIM dari tabel data
+        $nbulan = date('m'); // ambil bulan aktif
+        $tghUser = $this->db->get_where('tb_tagihan', ['nim' => $userNIM, 'bulan' => $nbulan]); // cari data nim dari tabel tagihan
         if ($tghUser->num_rows() > 0) {
-          redirect('admin/ubahtagihan/' . $nim);
+          $idtagihan = $tghUser->row_array()['id_tagihan'];
+          redirect('admin/ubahtagihan/' . $idtagihan);
         } else {
           redirect('admin/tambahtagihan/' . $nim);
         }
@@ -385,7 +386,11 @@ class Admin extends CI_Controller
 
     $data['noBulan'] = date('m');
     $data['noTahun'] = date('Y');
-    $data['idTgh'] = $data['noTahun'] . $data['noBulan'] . $nim;;
+    $data['idTgh'] = $data['noTahun'] . $data['noBulan'] . $nim;
+    $data['total'] = $this->Admin_model->getTotalTagihanByNIM($nim);
+    $data['rincian'] = $this->db->get_where('tb_tagihan', ['nim' => $nim])->result_array();
+
+    // die;
 
     if ($this->form_validation->run() == FALSE) {
       $data['judul'] = 'Master Tagihan';
@@ -413,8 +418,9 @@ class Admin extends CI_Controller
       $data = [
         'id_tagihan' => $data['idTgh'],
         'created' => time(),
-        'bulan' => $this->input->post('bulan'),
+        'bulan' => $data['noBulan'],
         'tahun' => $this->input->post('tahun'),
+        'deadline' => strtotime(date('Y/m/t')),
         'nim' => $this->input->post('nim'),
         'nama' => $this->input->post('nama'),
         'jumlah' => $jumlah,
@@ -440,20 +446,24 @@ class Admin extends CI_Controller
   } // end function tambahtagihan
 
 
-  public function ubahTagihan($nim)
+  public function ubahTagihan($idtagihan)
   {
     $data['user'] = $this->db->get_where('tb_user', ['nim' => $this->session->userdata('nim')])->row_array();
 
     $data['bulan'] = $this->db->get('tb_bulan')->result_array();
 
-    $data['noBulan'] = date('m');
-    $data['noTahun'] = date('Y');
-    $data['idTgh'] = $data['noTahun'] . $data['noBulan'] . $nim;
+    // $data['noBulan'] = date('m');
+    // $data['noTahun'] = date('Y');
+    // $data['idTgh'] = $data['noTahun'] . $data['noBulan'] . $nim;
 
-    $data['mahasiswa'] = $this->db->get_where('tb_tagihan', ['nim' => $nim])->row_array();
+    $data['tagihan'] = $this->db->get_where('tb_tagihan', ['id_tagihan' => $idtagihan])->row_array();
 
     $this->form_validation->set_rules('nim', 'NIM', 'required|trim|numeric');
     $this->form_validation->set_rules('nama', 'Nama', 'required');
+
+    $nim = $data['tagihan']['nim'];
+    $data['total'] = $this->Admin_model->getTotalTagihanByNIM($nim);
+    $data['rincian'] = $this->db->get_where('tb_tagihan', ['nim' => $nim])->result_array();
 
     if ($this->form_validation->run() == FALSE) {
       $data['judul'] = 'Master Tagihan';
@@ -463,6 +473,10 @@ class Admin extends CI_Controller
       $this->load->view('tagihan/ubahtagihan', $data);
       $this->load->view('templates/footer');
     } else {
+      // $deadline = strtotime(date('Y/m/t')); // menampilkan timestamp tanggal akhir di bulan berjalan
+
+      // $cap = date('d F Y', $deadline); // merubah timestamp menjadi format tanggal
+
       $cuti = (int)$this->input->post('cuti');
       $dpp = (int)$this->input->post('dpp');
       $almamater = (int)$this->input->post('almamater');
@@ -475,13 +489,11 @@ class Admin extends CI_Controller
       $konversi = (int)$this->input->post('konversi');
       $denda = (int)$this->input->post('denda');
 
-      $jumlah = $cuti + $dpp + $almamater + $pspt + $kp + $pkp + $ta + $pta + $pta + $spp + $konversi + $denda;
+      $jumlah = $cuti + $dpp + $almamater + $pspt + $kp + $pkp + $ta + $pta + $spp + $konversi + $denda;
+
       $data = [
-        'id_tagihan' => $data['idTgh'],
-        'bulan' => $this->input->post('bulan'),
-        'tahun' => $this->input->post('tahun'),
-        'nim' => $this->input->post('nim'),
-        'nama' => $this->input->post('nama'),
+        // 'id_tagihan' => $data['idTgh'],
+        // 'deadline' => $deadline,
         'jumlah' => $jumlah,
         'cuti' => $cuti,
         'dpp' => $dpp,
@@ -497,7 +509,7 @@ class Admin extends CI_Controller
         'status' => '0'
       ];
 
-      $this->db->where('nim', $nim);
+      $this->db->where('id_tagihan', $idtagihan);
       $this->db->update('tb_tagihan', $data);
       $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">Berhasil Dirubah</div');
       redirect('admin/tagihan');
@@ -505,13 +517,16 @@ class Admin extends CI_Controller
   } // end function ubahTagihan
 
 
-  public function detailTagihan($nim)
+  public function detailTagihan($idtagihan)
   {
     $data['user'] = $this->db->get_where('tb_user', ['nim' => $this->session->userdata('nim')])->row_array();
     $data['judul'] = 'Master Tagihan';
     $data['bulan'] = $this->db->get('tb_bulan')->result_array();
 
-    $data['mahasiswa'] = $this->db->get_where('tb_tagihan', ['nim' => $nim])->row_array();
+    $data['tagihan'] = $this->db->get_where('tb_tagihan', ['id_tagihan' => $idtagihan])->row_array();
+    $data['bulan_tagihan'] = $this->db->get_where('tb_bulan', ['id' => $data['tagihan']['bulan']])->row_array()['bulan'] . ' ' . $data['tagihan']['tahun'];
+
+    $nim = $data['tagihan']['nim'];
     $data['user'] = $this->db->get_where('tb_user', ['nim' => $nim])->row_array();
 
     $this->load->view('templates/header', $data);
@@ -605,7 +620,8 @@ class Admin extends CI_Controller
       // Jadi dilewat saja, tidak usah diimport
       if ($numrow > 1) {
         // Kita push (add) array data ke variabel data
-        $idTagihan = date('Y') . date('m') . $row['D'];
+        $idTagihan = date('Y') . date('m') . $row['E'];
+        $deadline = strtotime(date($row['D']));
         // var_dump($idTagihan);
         // die;
         array_push($data, array(
@@ -613,19 +629,21 @@ class Admin extends CI_Controller
           'created' => time(),
           'bulan' => $row['B'],
           'tahun' => $row['C'],
-          'nim' => $row['D'], // Insert data nama dari kolom B di excel
-          'nama' => $row['E'],
-          'jumlah' => $row['F'],
-          'cuti' => $row['G'],
-          'dpp' => $row['H'],
-          'almamater' => $row['I'],
-          'pspt' => $row['J'],
-          'kp' => $row['K'],
-          'pkp' => $row['L'],
-          'ta' => $row['M'],
-          'pta' => $row['N'],
-          'spp' => $row['O'],
-          'denda' => $row['P']
+          'deadline' => $deadline,
+          'nim' => $row['E'],
+          'nama' => $row['F'],
+          'jumlah' => $row['G'],
+          'cuti' => $row['H'],
+          'dpp' => $row['I'],
+          'almamater' => $row['J'],
+          'pspt' => $row['K'],
+          'kp' => $row['L'],
+          'pkp' => $row['M'],
+          'ta' => $row['N'],
+          'pta' => $row['O'],
+          'spp' => $row['P'],
+          'konversi' => $row['Q'],
+          'denda' => $row['R']
         ));
       }
 

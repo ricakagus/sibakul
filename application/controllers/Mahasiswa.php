@@ -7,6 +7,7 @@ class Mahasiswa extends CI_Controller
   {
     parent::__construct();
     login_role();
+    $this->load->model('Mahasiswa_model');
   }
 
   public function index()
@@ -24,18 +25,73 @@ class Mahasiswa extends CI_Controller
     $this->load->view('templates/footer');
   }
 
-  public function Tagihan()
+  public function tagihan()
+  {
+    $data['user'] = $this->db->get_where('tb_user', ['nim' => $this->session->userdata('nim')])->row_array();
+    $data['judul'] = 'Tagihan';
+
+    $config['total_rows'] = $this->db->count_all_results();
+    $config['per_page'] = 10;
+    $config['num_links'] = 2; // nomor halaman di kiri 2 dan kanan 2    
+
+    //styling
+    $config['full_tag_open'] = '<div class="card-footer clearfix"> <ul class="pagination m-0 float-right">';
+    $config['full_tag_close'] = '</ul></div>';
+
+    $config['first_link'] = 'First';
+    $config['first_tag_open'] = '<li class="page-item">';
+    $config['first_tag_close'] = '</li>';
+
+    $config['last_link'] = 'Last';
+    $config['last_tag_open'] = '<li class="page-item">';
+    $config['last_tag_close'] = '<li>';
+
+    $config['next_link'] = '&raquo;';
+    $config['next_tag_open'] = '<li class="page-item">';
+    $config['next_tag_close'] = '<li>';
+
+    $config['prev_link'] = '&laquo;';
+    $config['next_tag_open'] = '<li class="page-item">';
+    $config['next_tag_close'] = '<li>';
+
+    $config['cur_tag_open'] = '<li class="page-item active"><a class="page-link">';
+    $config['cur_tag_close'] = '</a></li>';
+
+    $config['num_tag_open'] = '<li class=" page-item">';
+    $config['num_tag_close'] = '</li>';
+
+    $config['attributes'] = array('class' => 'page-link');
+
+    $this->pagination->initialize($config);
+
+    $data['start'] = $this->uri->segment(3);
+    $data['tagihan'] = $this->Mahasiswa_model->getDataPageTagihan($config['per_page'], $data['start'], $this->session->userdata('nim'));
+
+    $data['bulan'] = $this->db->get('tb_bulan')->result_array();
+
+    $data['totaltgh'] = $this->Mahasiswa_model->getTotalTagihan($this->session->userdata['nim']);
+
+    $this->load->view('templates/header', $data);
+    $this->load->view('templates/topbar');
+    $this->load->view('templates/sidebar', $data);
+    $this->load->view('mahasiswa/tagihan', $data);
+    $this->load->view('templates/footer');
+  }
+
+
+  public function detailtagihan($idtagihan)
   {
     $data['user'] = $this->db->get_where('tb_user', ['nim' => $this->session->userdata('nim')])->row_array();
     $nim = $this->session->userdata('nim');
     $data['judul'] = 'Tagihan';
     $data['bulan'] = $this->db->get('tb_bulan')->result_array();
 
-    $data['mahasiswa'] = $this->db->get_where('tb_tagihan', ['nim' => $nim])->row_array();
+    $data['tagihan'] = $this->db->get_where('tb_tagihan', ['id_tagihan' => $idtagihan])->row_array();
+    $data['bulan_tagihan'] = $this->db->get_where('tb_bulan', ['id' => $data['tagihan']['bulan']])->row_array()['bulan'] . ' ' . $data['tagihan']['tahun'];
+
     $data['user'] = $this->db->get_where('tb_user', ['nim' => $nim])->row_array();
 
-    $data['reqTagihan'] = $this->db->get_where('tb_req_tagihan', ['id_tagihan' => $data['mahasiswa']['id_tagihan']])->row_array();
-
+    $data['reqTagihan'] = $this->db->get_where('tb_req_tagihan', ['id_tagihan' => $data['tagihan']['id_tagihan']])->row_array();
 
     $this->load->view('templates/header', $data);
     $this->load->view('templates/topbar');
@@ -44,13 +100,14 @@ class Mahasiswa extends CI_Controller
     $this->load->view('templates/footer');
   } // end function detailTagihan
 
-  public function cetak_tagihan($nim)
+  public function cetak_tagihan($idtagihan)
   {
     $data['user'] = $this->db->get_where('tb_user', ['nim' => $this->session->userdata('nim')])->row_array();
-    $data['judul'] = 'Cetak Tagihan-' . $nim;
+    $data['judul'] = 'Cetak Tagihan-' . $idtagihan;
     $data['bulan'] = $this->db->get('tb_bulan')->result_array();
 
-    $data['mahasiswa'] = $this->db->get_where('tb_tagihan', ['nim' => $nim])->row_array();
+    $data['tagihan'] = $this->db->get_where('tb_tagihan', ['id_tagihan' => $idtagihan])->row_array();
+    $nim = $data['tagihan']['nim'];
     $data['user'] = $this->db->get_where('tb_user', ['nim' => $nim])->row_array();
 
     $this->load->view('templates/header', $data);

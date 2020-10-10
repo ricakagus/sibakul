@@ -24,7 +24,8 @@
     <div class="container-fluid">
 
       <div class="row">
-        <div class="col-md-8">
+        <!-- begin rincian tagihan -->
+        <div class="col-lg-8 col-md-12">
           <div class="card card-primary card-outline">
             <div class="card-header bg-secondary">
               <div class="row">
@@ -150,6 +151,51 @@
             </form>
           </div>
         </div>
+        <!-- / end rincian tagihan -->
+
+
+        <!-- begin rekap tagihan -->
+        <div class="col-lg-4 col-md-12">
+          <div class="card card-primary card-outline">
+            <div class="card-header bg-secondary">
+              <div class="row">
+                Rekap Tagihan
+              </div>
+      
+            </div>
+            <div class="card-body pt-2">
+              <div class="row d-flex align-items-end pb-2">
+                <div class="col-md-4 ">
+                  <span class="h4">Total:</span>
+                </div>
+                <div class="col-md-8 text-right">
+                  <span class="h3 text-danger">Rp. <?= number_format($total['jumlah'], '0', ',', '.'); ?> </span>
+                </div>
+              </div>
+              <div class="row">
+                <table class="table table-borderless table-striped table-sm ">
+                  <tbody>
+                    <?php foreach ($rincian as $r) : ?>
+                      <tr>
+                        <?php foreach ($bulan as $b) :
+                          if ($r['bulan'] == $b['id']) :
+                            $namabulan = $b['bulan'];
+                          endif;
+                        endforeach;
+                        ?>
+
+                        <td style="width: 40%;"><?= $namabulan . ' ' . $r['tahun'];; ?></td>
+                        <td style="width: 10%;">:</td>
+                        <td class="text-right"><?= number_format($r['jumlah'], '0', ',', '.');  ?></td>
+                      </tr>
+                    <?php endforeach; ?>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- / end rekap tagihan -->
       </div>
 
 

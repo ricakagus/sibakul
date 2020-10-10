@@ -32,9 +32,9 @@
                 <img src="<?= base_url('assets/img/') . 'logo-sbb-bg-white.jpg'; ?>" class="rounded" height="50px">
               </div>
               <div class="col-sm-9">
-                <p class="h2 ml-4 mt-2"> STMIK BANDUNG BALI
-                  <small class="float-right">Date: <?= date('d F Y', $mahasiswa['created']); ?></small>
+                <p class="h2 ml-4 mt-2 mb-0"> STMIK BANDUNG BALI
                 </p>
+                <!-- <small class="float-right mt-0">Date: <?= date('d F Y', $tagihan['created']); ?></small> -->
               </div>
             </div>
 
@@ -56,21 +56,21 @@
                 </address>
               </div>
               <div class="col-sm-4 invoice-col">
-                <b>No.Tagihan #</b><span class="text-danger"><?= $mahasiswa['id_tagihan'];  ?></span><b>#</b>
-                <?php if ($mahasiswa['status'] == 0) : ?>
+                <b>No.Tagihan #</b><span class="text-danger"><?= $tagihan['id_tagihan'];  ?></span><b>#</b>
+                <?php if ($tagihan['status'] == 0) : ?>
                   <span class="badge badge-danger">bill</span>
                 <?php else : ?>
-                  <a href="<?= base_url('admin/cek_pembayaran/') . $mahasiswa['id_tagihan']; ?>" class="badge badge-warning">paid</a>
+                  <a href="<?= base_url('admin/cek_pembayaran/') . $tagihan['id_tagihan']; ?>" class="badge badge-warning">paid</a>
                 <?php endif; ?>
                 <br>
-                <b>Tagihan Bulan:</b> <?= date('F Y'); ?> <br>
-                <?php if ($mahasiswa['status'] == 0) : ?>
+                <b>Tagihan Bulan:</b> <?= $bulan_tagihan; ?> <br> 
+                <?php if ($tagihan['status'] == 0) : ?>
                   <a href="" class="btn btn-info btn-block disabled">Cek Pembayaran</a>
                 <?php else : ?>
-                  <a href="<?= base_url('admin/cek_pembayaran/') . $mahasiswa['id_tagihan']; ?>" class="btn btn-info btn-block">Cek Pembayaran</a>
+                  <a href="<?= base_url('admin/cek_pembayaran/') . $tagihan['id_tagihan']; ?>" class="btn btn-info btn-block">Cek Pembayaran</a>
                 <?php endif; ?>
 
-                <a href="<?= base_url('admin/ubahTagihan/') . $mahasiswa['nim']; ?>" onclick="return confirm('ubah data, yakin?');" class="btn btn-warning btn-block ">Ubah Tagihan</a>
+                <a href="<?= base_url('admin/ubahTagihan/') . $tagihan['id_tagihan']; ?>" onclick="return confirm('ubah data, yakin?');" class="btn btn-warning btn-block ">Ubah Tagihan</a>
               </div>
               <div class="col-md-4 invoice-col">
 
@@ -95,37 +95,37 @@
                       <td>1.</td>
                       <td>Cuti</td>
                       <td>:</td>
-                      <td>Rp. <?= number_format($mahasiswa['cuti'], '0', ',', '.'); ?></td>
+                      <td>Rp. <?= number_format($tagihan['cuti'], '0', ',', '.'); ?></td>
                     </tr>
                     <tr>
                       <td>2.</td>
                       <td>DPP</td>
                       <td>:</td>
-                      <td>Rp. <?= number_format($mahasiswa['dpp'], '0', ',', '.'); ?></td>
+                      <td>Rp. <?= number_format($tagihan['dpp'], '0', ',', '.'); ?></td>
                     </tr>
                     <tr>
                       <td>3.</td>
                       <td>Almamater</td>
                       <td>:</td>
-                      <td>Rp. <?= number_format($mahasiswa['almamater'], '0', ',', '.'); ?></td>
+                      <td>Rp. <?= number_format($tagihan['almamater'], '0', ',', '.'); ?></td>
                     </tr>
                     <tr>
                       <td>4.</td>
                       <td>PSPT</td>
                       <td>:</td>
-                      <td>Rp. <?= number_format($mahasiswa['pspt'], '0', ',', '.'); ?></td>
+                      <td>Rp. <?= number_format($tagihan['pspt'], '0', ',', '.'); ?></td>
                     </tr>
                     <tr>
                       <td>5.</td>
                       <td>Kerja Panjang (KP)</td>
                       <td>:</td>
-                      <td>Rp. <?= number_format($mahasiswa['kp'], '0', ',', '.'); ?></td>
+                      <td>Rp. <?= number_format($tagihan['kp'], '0', ',', '.'); ?></td>
                     </tr>
                     <tr>
                       <td>6.</td>
                       <td>Denda</td>
                       <td>:</td>
-                      <td>Rp. <?= number_format($mahasiswa['denda'], '0', ',', '.'); ?></td>
+                      <td>Rp. <?= number_format($tagihan['denda'], '0', ',', '.'); ?></td>
                     </tr>
                   </tbody>
                 </table>
@@ -144,37 +144,37 @@
                       <td>7.</td>
                       <td>Perpanjang KP</td>
                       <td>:</td>
-                      <td>Rp. <?= number_format($mahasiswa['pkp'], '0', ',', '.'); ?></td>
+                      <td>Rp. <?= number_format($tagihan['pkp'], '0', ',', '.'); ?></td>
                     </tr>
                     <tr>
                       <td>8.</td>
                       <td>Tugas Akhir (TA)</td>
                       <td>:</td>
-                      <td>Rp. <?= number_format($mahasiswa['ta'], '0', ',', '.'); ?></td>
+                      <td>Rp. <?= number_format($tagihan['ta'], '0', ',', '.'); ?></td>
                     </tr>
                     <tr>
                       <td>9.</td>
                       <td>Perpanjang TA</td>
                       <td>:</td>
-                      <td>Rp. <?= number_format($mahasiswa['pta'], '0', ',', '.'); ?></td>
+                      <td>Rp. <?= number_format($tagihan['pta'], '0', ',', '.'); ?></td>
                     </tr>
                     <tr>
                       <td>10.</td>
                       <td>SPP</td>
                       <td>:</td>
-                      <td>Rp. <?= number_format($mahasiswa['spp'], '0', ',', '.'); ?></td>
+                      <td>Rp. <?= number_format($tagihan['spp'], '0', ',', '.'); ?></td>
                     </tr>
                     <tr>
                       <td>11.</td>
                       <td>Konversi</td>
                       <td>:</td>
-                      <td>Rp. <?= number_format($mahasiswa['konversi'], '0', ',', '.'); ?></td>
+                      <td>Rp. <?= number_format($tagihan['konversi'], '0', ',', '.'); ?></td>
                     </tr>
                   </tbody>
                 </table>
               </div>
             </div> <!-- end row tabel -->
-
+            <hr class="mt-0">
             <!-- row payment -->
             <div class="row">
               <div class="col-6">
@@ -193,29 +193,32 @@
               </div>
               <!-- /.col -->
               <div class="col-6">
-                <p class="lead">Batas Pembayaran: <?php if (!$mahasiswa) : ?>
+                <p class="lead">Batas Pembayaran: <?php if (!$tagihan) : ?>
                     <b>-</b>
                   <?php else : ?>
-                    <b style="color: red;"><?= date('t') . '/' . date('m') . '/' . date('Y'); ?></b></p>
+                    <b style="color: red;">
+                      <?= date('d / m / Y', $tagihan['deadline']); ?>
+                    </b></p>
               <?php endif; ?></p>
-
-              <div class="table-responsive">
-                <table class="table">
+              <hr class="m-0">
+              <div class="table-responsive bg-light">
+                <table class="table table-borderless mb-0">
                   <tr class="h4">
                     <th style="width: 30%;"></th>
                     <th style="width:25%">Total</th>
-                    <td>: Rp. <?= number_format($mahasiswa['jumlah'], '0', ',', '.'); ?></td>
+                    <td>: Rp. <?= number_format($tagihan['jumlah'], '0', ',', '.'); ?></td>
                   </tr>
                 </table>
               </div>
+              <hr class="m-0">
               </div>
             </div> <!-- end row payment -->
 
             <!-- row print -->
             <div class="row no-print">
-              <div class="col-9"></div>
-              <div class="col-2">
-                <a href="<?= base_url('mahasiswa/cetak_tagihan/') . $mahasiswa['nim']; ?>" target="_blank" class="btn btn-primary btn-block float-right"><i class="fas fa-print"></i> Cetak</a>
+              <div class="col-8"></div>
+              <div class="col-4">
+                <a href="<?= base_url('mahasiswa/cetak_tagihan/') . $tagihan['nim']; ?>" target="_blank" class="btn btn-primary btn-block float-right"><i class="fas fa-print"></i> Cetak</a>
               </div>
             </div>
           </div>

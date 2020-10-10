@@ -44,7 +44,7 @@ class Mahasiswa_model extends CI_Model
     $this->db->where('nim', $nim);
     $this->db->delete('tb_user');
   }
- 
+
   public function upload_file($filename)
   {
     $this->load->library('upload');
@@ -69,5 +69,18 @@ class Mahasiswa_model extends CI_Model
   public function insert_multiple($data)
   {
     $this->db->insert_batch('tb_user', $data);
+  }
+
+  public function getDataPageTagihan($limit, $start, $nim)
+  {
+    $this->db->where('nim', $nim);
+    return $this->db->get('tb_tagihan', $limit, $start, $nim)->result_array();
+  }
+
+  public function getTotalTagihan($nim)
+  {
+    $this->db->select_sum('jumlah');
+    $this->db->where('nim', $nim);
+    return $this->db->get('tb_tagihan')->row_array();
   }
 }

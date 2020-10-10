@@ -33,7 +33,7 @@
                 <i class="fas fa-plus"></i>
                 Tambah Data Tagihan
               </button>
-              <a class="btn btn-success btn-sm" href="<?= base_url('admin/uploadTagihan'); ?>" role="button">
+              <a href="<?= base_url('admin/uploadTagihan'); ?>"  class="btn btn-success btn-sm" role="button">
                 <i class="fas fa-upload"></i>
                 Import Data Tagihan
               </a>
@@ -52,8 +52,8 @@
                 <small class="ml-4 mt-0 text-danger " style="font-size: 11px;"><i>pencarian bulan gunakan angka</i></small>
               </div>
             </div>
-            <div class="card-body p-0">
 
+            <div class="card-body p-0">
               <table id="example2" class="table table-hover projects table-sm table-striped">
                 <thead>
                   <tr class="bg-dark">
@@ -85,7 +85,7 @@
 
                       <td><?= $tgh['nim']; ?></td>
                       <td><?= $tgh['nama']; ?></td>
-                      <td class="text-right">Rp. <?= number_format($tgh['jumlah'], '0', ',', '.'); ?></td>
+                      <td>Rp. <?= number_format($tgh['jumlah'], '0', ',', '.'); ?></td>
 
                       <td class="project-state">
                         <?php if ($tgh['status'] == 0) : ?>
@@ -97,14 +97,14 @@
                         <?php endif; ?>
                       </td>
                       <td class="project-actions text-left">
-                        <a class="btn btn-primary btn-sm " href="<?= base_url('admin/detailTagihan/') . $tgh['nim']; ?>">
+                        <a class="btn btn-primary btn-sm" href="<?= base_url('admin/detailTagihan/') . $tgh['id_tagihan']; ?>">
                           <i class="fas fa-eye"></i>
                         </a>
                         <!-- <a class="btn btn-info btn-sm" href="#">
                           <i class="fas fa-pencil-alt"></i>
                         </a> -->
 
-                        <a class="btn btn-danger btn-sm" href="<?= base_url('admin/hapusTagihan/') . $tgh['nim']; ?>" onclick="return confirm('hapus data, yakin?');">
+                        <a class="btn btn-danger btn-sm" href="<?= base_url('admin/hapusTagihan/') . $tgh['id_tagihan']; ?>" onclick="return confirm('hapus data, yakin?');">
                           <i class="fas fa-trash-alt"></i>
                         </a>
                       </td>
@@ -119,9 +119,6 @@
             </div>
           </div>
         </div>
-
-
-
 
       </div> <!-- end Row -->
 

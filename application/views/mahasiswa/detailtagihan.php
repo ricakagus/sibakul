@@ -36,7 +36,7 @@
                 </div>
                 <div class="col-sm-9">
                   <p class="h2 ml-4 mt-2"> STMIK BANDUNG BALI
-                    <small class="float-right h6"><?= date('d F Y', $mahasiswa['created']); ?></small>
+                    <small class="float-right h6"><i><?= date('d F Y', $tagihan['created']); ?></i></small>
                   </p>
                 </div>
               </div>
@@ -58,18 +58,18 @@
                     Phone: <?= $user['noHp'] ?><br>
                   </address>
                 </div>
-                <?php if (!$mahasiswa) : ?>
+                <?php if (!$tagihan) : ?>
                   <div class="col-sm-4 invoice-col">
                     <b>No.Tagihan #-</b><br>
                     <small class="badge badge-success">tidak ada tagihan</small>
                   </div>
                 <?php else : ?>
                   <div class="col-sm-4 invoice-col">
-                    <b>No.Tagihan #<?= $mahasiswa['id_tagihan'];  ?></b><br>
-                    <b>Tagihan Bulan:</b> <?= date('F Y'); ?> <br>
-                    <?php if ($mahasiswa['status'] == 0) : ?>
+                    <b>No.Tagihan #<?= $tagihan['id_tagihan'];  ?></b><br>
+                    <b>Tagihan Bulan:</b> <?= $bulan_tagihan; ?> <br>
+                    <?php if ($tagihan['status'] == 0) : ?>
                       <a href="<?= base_url('mahasiswa/bayarkuliah/'); ?>" class="btn btn-primary btn-block">bayar kuliah</a>
-                    <?php elseif ($mahasiswa['status'] == 2) : ?>
+                    <?php elseif ($tagihan['status'] == 2) : ?>
                       <a href="<?= base_url('mahasiswa/bayarkuliah/'); ?>" class="badge badge-danger px-3 py-1">bukti pembayaran ditolak >> <u>upload ulang</u></a>
                     <?php else : ?>
                       <small class="badge badge-warning">menunggu konfirmasi admin</small>
@@ -93,7 +93,7 @@
                         <th width="10%">Subtotal</th>
                       </tr>
                     </thead>
-                    <?php if (!$mahasiswa) : ?>
+                    <?php if (!$tagihan) : ?>
                       <tbody>
                         <tr>
                           <td colspan="4">
@@ -107,37 +107,37 @@
                           <td>1.</td>
                           <td>Cuti</td>
                           <td>:</td>
-                          <td>Rp. <?= number_format($mahasiswa['cuti'], '0', ',', '.'); ?></td>
+                          <td>Rp. <?= number_format($tagihan['cuti'], '0', ',', '.'); ?></td>
                         </tr>
                         <tr>
                           <td>2.</td>
                           <td>DPP</td>
                           <td>:</td>
-                          <td>Rp. <?= number_format($mahasiswa['dpp'], '0', ',', '.'); ?></td>
+                          <td>Rp. <?= number_format($tagihan['dpp'], '0', ',', '.'); ?></td>
                         </tr>
                         <tr>
                           <td>3.</td>
                           <td>Almamater</td>
                           <td>:</td>
-                          <td>Rp. <?= number_format($mahasiswa['almamater'], '0', ',', '.'); ?></td>
+                          <td>Rp. <?= number_format($tagihan['almamater'], '0', ',', '.'); ?></td>
                         </tr>
                         <tr>
                           <td>4.</td>
                           <td>PSPT</td>
                           <td>:</td>
-                          <td>Rp. <?= number_format($mahasiswa['pspt'], '0', ',', '.'); ?></td>
+                          <td>Rp. <?= number_format($tagihan['pspt'], '0', ',', '.'); ?></td>
                         </tr>
                         <tr>
                           <td>5.</td>
                           <td>Kerja Panjang (KP)</td>
                           <td>:</td>
-                          <td>Rp. <?= number_format($mahasiswa['kp'], '0', ',', '.'); ?></td>
+                          <td>Rp. <?= number_format($tagihan['kp'], '0', ',', '.'); ?></td>
                         </tr>
                         <tr>
                           <td>7.</td>
                           <td>Denda</td>
                           <td>:</td>
-                          <td>Rp. <?= number_format($mahasiswa['denda'], '0', ',', '.'); ?></td>
+                          <td>Rp. <?= number_format($tagihan['denda'], '0', ',', '.'); ?></td>
                         </tr>
                       </tbody>
                     <?php endif; ?>
@@ -152,7 +152,7 @@
                         <th width="10%">Subtotal</th>
                       </tr>
                     </thead>
-                    <?php if (!$mahasiswa) : ?>
+                    <?php if (!$tagihan) : ?>
                       <tbody>
                         <tr>
                           <td colspan="4">
@@ -166,31 +166,31 @@
                           <td>7.</td>
                           <td>Perpanjang KP</td>
                           <td>:</td>
-                          <td>Rp. <?= number_format($mahasiswa['pkp'], '0', ',', '.'); ?></td>
+                          <td>Rp. <?= number_format($tagihan['pkp'], '0', ',', '.'); ?></td>
                         </tr>
                         <tr>
                           <td>8.</td>
                           <td>Tugas Akhir (TA)</td>
                           <td>:</td>
-                          <td>Rp. <?= number_format($mahasiswa['ta'], '0', ',', '.'); ?></td>
+                          <td>Rp. <?= number_format($tagihan['ta'], '0', ',', '.'); ?></td>
                         </tr>
                         <tr>
                           <td>9.</td>
                           <td>Perpanjang TA</td>
                           <td>:</td>
-                          <td>Rp. <?= number_format($mahasiswa['pta'], '0', ',', '.'); ?></td>
+                          <td>Rp. <?= number_format($tagihan['pta'], '0', ',', '.'); ?></td>
                         </tr>
                         <tr>
                           <td>10.</td>
                           <td>SPP</td>
                           <td>:</td>
-                          <td>Rp. <?= number_format($mahasiswa['spp'], '0', ',', '.'); ?></td>
+                          <td>Rp. <?= number_format($tagihan['spp'], '0', ',', '.'); ?></td>
                         </tr>
                         <tr>
                           <td>11.</td>
                           <td>Konversi</td>
                           <td>:</td>
-                          <td>Rp. <?= number_format($mahasiswa['konversi'], '0', ',', '.'); ?></td>
+                          <td>Rp. <?= number_format($tagihan['konversi'], '0', ',', '.'); ?></td>
                         </tr>
                       </tbody>
                     <?php endif; ?>
@@ -217,10 +217,10 @@
                 <!-- /.col -->
                 <div class="col-6">
                   <p class="lead">Batas Pembayaran:
-                    <?php if (!$mahasiswa) : ?>
+                    <?php if (!$tagihan) : ?>
                       <b>-</b>
                     <?php else : ?>
-                      <b style="color: red;"><?= date('t') . '/' . date('m') . '/' . date('Y'); ?></b></p>
+                      <b style="color: red;"><?= date('d/m/Y', $tagihan['deadline']); ?></b></p>
                 <?php endif; ?>
                 <hr class="m-0">
                 <div class="table-responsive bg-light">
@@ -228,7 +228,7 @@
                     <tr class="h4">
                       <th style="width: 30%;"></th>
                       <th style="width:25%">Total</th>
-                      <td>: Rp. <?= number_format($mahasiswa['jumlah'], '0', ',', '.'); ?></td>
+                      <td>: Rp. <?= number_format($tagihan['jumlah'], '0', ',', '.'); ?></td>
                     </tr>
                   </table>
                 </div>
@@ -239,7 +239,7 @@
               <!-- row print -->
               <div class="row no-print d-flex justify-content-around">
                 <div class="col-4">
-                  <?php if (!$mahasiswa) : ?>
+                  <?php if (!$tagihan) : ?>
                     <button class="btn btn-block btn-success" disabled><i class=" far fa-fw fa-envelope "></i> Ajukan Perubahan</button>
                     <?php else :
                     if ($reqTagihan) : // ada data reqTagihan
@@ -295,10 +295,10 @@
 
                 </div>
                 <div class="col-4">
-                  <?php if (!$mahasiswa) : ?>
+                  <?php if (!$tagihan) : ?>
                     <button class="btn btn-block btn-primary" disabled><i class=" fas fa-print"></i> Cetak</button>
                   <?php else : ?>
-                    <a href="<?= base_url('mahasiswa/cetak_tagihan/') . $mahasiswa['nim']; ?>" target="_none" class="btn btn-block btn-primary"><i class="fas fa-fw fa-print"></i> Cetak</a>
+                    <a href="<?= base_url('mahasiswa/cetak_tagihan/') . $tagihan['id_tagihan']; ?>" target="_none" class="btn btn-block btn-primary"><i class="fas fa-fw fa-print"></i> Cetak</a>
                   <?php endif; ?>
                 </div>
               </div>

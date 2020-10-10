@@ -13,7 +13,7 @@
               </div>
               <div class="col-10">
                 <p class="h2 ml-4 mt-2"> STMIK BANDUNG BALI
-                  <small class="float-right h6"><?= date('d F Y', $mahasiswa['created']); ?></small>
+                  <small class="float-right h6"><?= date('d F Y', $tagihan['created']); ?></small>
                 </p>
               </div>
             </div>
@@ -36,7 +36,7 @@
                 </address>
               </div>
               <div class="col-sm-4 invoice-col">
-                <b>No.Tagihan #<?= $mahasiswa['id_tagihan'];  ?></b><br>
+                <b>No.Tagihan #<?= $tagihan['id_tagihan'];  ?></b><br>
                 <b>Batas Pembayaran:</b> <?= date('t') . '/' . date('m') . '/' . date('Y'); ?> <br>
               </div>
             </div> <!-- end row infoice-info -->
@@ -59,37 +59,37 @@
                       <td>1.</td>
                       <td>Cuti</td>
                       <td>:</td>
-                      <td>Rp. <?= number_format($mahasiswa['cuti'], '0', ',', '.'); ?></td>
+                      <td>Rp. <?= number_format($tagihan['cuti'], '0', ',', '.'); ?></td>
                     </tr>
                     <tr>
                       <td>2.</td>
                       <td>DPP</td>
                       <td>:</td>
-                      <td>Rp. <?= number_format($mahasiswa['dpp'], '0', ',', '.'); ?></td>
+                      <td>Rp. <?= number_format($tagihan['dpp'], '0', ',', '.'); ?></td>
                     </tr>
                     <tr>
                       <td>3.</td>
                       <td>Almamater</td>
                       <td>:</td>
-                      <td>Rp. <?= number_format($mahasiswa['almamater'], '0', ',', '.'); ?></td>
+                      <td>Rp. <?= number_format($tagihan['almamater'], '0', ',', '.'); ?></td>
                     </tr>
                     <tr>
                       <td>4.</td>
                       <td>PSPT</td>
                       <td>:</td>
-                      <td>Rp. <?= number_format($mahasiswa['pspt'], '0', ',', '.'); ?></td>
+                      <td>Rp. <?= number_format($tagihan['pspt'], '0', ',', '.'); ?></td>
                     </tr>
                     <tr>
                       <td>5.</td>
                       <td>Kerja Panjang (KP)</td>
                       <td>:</td>
-                      <td>Rp. <?= number_format($mahasiswa['kp'], '0', ',', '.'); ?></td>
+                      <td>Rp. <?= number_format($tagihan['kp'], '0', ',', '.'); ?></td>
                     </tr>
                     <tr>
                       <td>6.</td>
                       <td>Denda</td>
                       <td>:</td>
-                      <td>Rp. <?= number_format($mahasiswa['denda'], '0', ',', '.'); ?></td>
+                      <td>Rp. <?= number_format($tagihan['denda'], '0', ',', '.'); ?></td>
                     </tr>
                   </tbody>
                 </table>
@@ -108,31 +108,31 @@
                       <td>7.</td>
                       <td>Perpanjang KP</td>
                       <td>:</td>
-                      <td>Rp. <?= number_format($mahasiswa['pkp'], '0', ',', '.'); ?></td>
+                      <td>Rp. <?= number_format($tagihan['pkp'], '0', ',', '.'); ?></td>
                     </tr>
                     <tr>
                       <td>8.</td>
                       <td>Tugas Akhir (TA)</td>
                       <td>:</td>
-                      <td>Rp. <?= number_format($mahasiswa['ta'], '0', ',', '.'); ?></td>
+                      <td>Rp. <?= number_format($tagihan['ta'], '0', ',', '.'); ?></td>
                     </tr>
                     <tr>
                       <td>9.</td>
                       <td>Perpanjang TA</td>
                       <td>:</td>
-                      <td>Rp. <?= number_format($mahasiswa['pta'], '0', ',', '.'); ?></td>
+                      <td>Rp. <?= number_format($tagihan['pta'], '0', ',', '.'); ?></td>
                     </tr>
                     <tr>
                       <td>10.</td>
                       <td>SPP</td>
                       <td>:</td>
-                      <td>Rp. <?= number_format($mahasiswa['spp'], '0', ',', '.'); ?></td>
+                      <td>Rp. <?= number_format($tagihan['spp'], '0', ',', '.'); ?></td>
                     </tr>
                     <tr>
                       <td>11.</td>
                       <td>Konversi</td>
                       <td>:</td>
-                      <td>Rp. <?= number_format($mahasiswa['konversi'], '0', ',', '.'); ?></td>
+                      <td>Rp. <?= number_format($tagihan['konversi'], '0', ',', '.'); ?></td>
                     </tr>
                   </tbody>
                 </table>
@@ -160,22 +160,21 @@
                 <p class="lead">Batas Pembayaran:
                   <b style="color: red;"><?= date('t') . '/' . date('m') . '/' . date('Y'); ?></b>
                 </p>
-
-                <div class="table-responsive">
-                  <table class="table">
+                <hr class="m-0">
+                <div class="table-responsive bg-light">
+                  <table class="table table-borderless mb-0">
                     <tr class="h4">
                       <th style="width: 30%;"></th>
                       <th style="width:25%">Total</th>
-                      <td>: Rp. <?= number_format($mahasiswa['jumlah'], '0', ',', '.'); ?></td>
+                      <td>: Rp. <?= number_format($tagihan['jumlah'], '0', ',', '.'); ?></td>
                     </tr>
                   </table>
                 </div>
+                <hr class="m-0">
               </div>
             </div> <!-- end row payment -->
 
           </div>
-
-
         </div>
       </div>
       <hr>
