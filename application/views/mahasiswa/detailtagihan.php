@@ -67,13 +67,13 @@
                   <div class="col-sm-4 invoice-col">
                     <b>No.Tagihan #<?= $tagihan['id_tagihan'];  ?></b><br>
                     <b>Tagihan Bulan:</b> <?= $bulan_tagihan; ?> <br>
-                    <?php if ($tagihan['status'] == 0) : ?>
+                    <!-- <?php if ($tagihan['status'] == 0) : ?>
                       <a href="<?= base_url('mahasiswa/bayarkuliah/'); ?>" class="btn btn-primary btn-block">bayar kuliah</a>
                     <?php elseif ($tagihan['status'] == 2) : ?>
                       <a href="<?= base_url('mahasiswa/bayarkuliah/'); ?>" class="badge badge-danger px-3 py-1">bukti pembayaran ditolak >> <u>upload ulang</u></a>
                     <?php else : ?>
                       <small class="badge badge-warning">menunggu konfirmasi admin</small>
-                    <?php endif; ?>
+                    <?php endif; ?> -->
                   </div>
                 <?php endif; ?>
 
@@ -261,7 +261,7 @@
                       elseif ($sisa == '1' and $status == '0') : // sisa 1, status 0
                       ?>
                         <a href="<?= base_url('mahasiswa/editReqTagihan/') . $reqTagihan['id_tagihan'] ?>" class="btn btn-block btn-warning"><i class="far fa-fw fa-envelope"></i> Ajukan Perubahan</a>
-                        <small class="text-dark ml-2">sedang diproses, batas ajuan tersisa 2 kali.</small>
+                        <small class="text-dark ml-2">sedang diproses, batas ajuan tersisa <?= $sisa; ?> kali.</small>
                       <?php elseif ($sisa == '1' and $status == '1') : // sisa 1, status 1 
                       ?>
                         <a href="<?= base_url('mahasiswa/editReqTagihan/') . $reqTagihan['id_tagihan'] ?>" class="btn btn-block btn-success"><i class="far fa-fw fa-envelope"></i> Ajukan Perubahan</a>

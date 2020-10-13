@@ -38,6 +38,7 @@ class Admin extends CI_Controller
     $data['user'] = $this->db->get_where('tb_user', ['nim' => $this->session->userdata('nim')])->row_array();
     $data['judul'] = 'Master Mahasiswa';
 
+    $this->session->unset_userdata('keyword'); // untuk mengembalikan seluruh tampilan data
     if ($this->input->post('cari')) {
       $data['keyword'] = $this->input->post('keyword');
       $this->session->set_userdata('keyword', $data['keyword']);
