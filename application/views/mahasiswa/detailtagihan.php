@@ -298,7 +298,7 @@
                   <?php if (!$tagihan) : ?>
                     <button class="btn btn-block btn-primary" disabled><i class=" fas fa-print"></i> Cetak</button>
                   <?php else : ?>
-                    <a href="<?= base_url('mahasiswa/cetak_tagihan/') . $tagihan['id_tagihan']; ?>" target="_none" class="btn btn-block btn-primary"><i class="fas fa-fw fa-print"></i> Cetak</a>
+                    <a href="<?= base_url('mahasiswa/cetak_tagihan/') . $tagihan['id_tagihan']; ?>" class="btn btn-block btn-primary"><i class="fas fa-fw fa-print"></i> Cetak</a>
                   <?php endif; ?>
                 </div>
               </div>
