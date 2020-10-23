@@ -279,11 +279,46 @@ class Admin extends CI_Controller
   }
   // end CONTROLLER IMPORT DATA MAHASISWA
 
+
   // Mulai Controller TAGIHAN
-  public function tagihan()
+
+  private function _rekapTagihan()
+  {
+    $querytotalpernim = "SELECT  nim, nama, MAX(bulan) as bulan, tahun, SUM(jumlah) AS total FROM `tb_tagihan` GROUP BY nim";
+    $rekaptagihan = $this->db->query($querytotalpernim)->result_array();
+
+    foreach ($rekaptagihan as $rkp) :
+      $datatotal = $this->db->get_where('tb_total_tagihan', ['nim' => $rkp['nim']])->row_array();
+      if ($datatotal) :
+        $data = [
+          'nim' => $rkp['nim'],
+          'nama' => $rkp['nama'],
+          'bulan' => $rkp['bulan'],
+          'tahun' => $rkp['tahun'],
+          'total' => $rkp['total']
+        ];
+        $this->db->where('nim', $rkp['nim']);
+        $this->db->update('tb_total_tagihan', $data);
+      else :
+        $data = [
+          'nim' => $rkp['nim'],
+          'nama' => $rkp['nama'],
+          'bulan' => $rkp['bulan'],
+          'tahun' => $rkp['tahun'],
+          'total' => $rkp['total'],
+          'status' => 0
+        ];
+        $this->db->insert('tb_total_tagihan', $data);
+      endif;
+    endforeach;
+  }
+
+  public function Tagihan()
   {
     $data['user'] = $this->db->get_where('tb_user', ['nim' => $this->session->userdata('nim')])->row_array();
     $data['judul'] = 'Master Tagihan';
+
+    $this->_rekapTagihan();
 
     $this->session->unset_userdata('keyword'); // untuk mengembalikan seluruh tampilan data
     if ($this->input->post('cari')) {
@@ -294,12 +329,9 @@ class Admin extends CI_Controller
     }
 
     $config['base_url'] = base_url('admin/tagihan');
-    $this->db->like('id_tagihan', $data['keyword']);
-    $this->db->or_like('nim', $data['keyword']);
+    $this->db->like('nim', $data['keyword']);
     $this->db->or_like('nama', $data['keyword']);
-    $this->db->or_like('status', $data['keyword']);
-    $this->db->or_like('tahun', $data['keyword']);
-    $this->db->from('tb_tagihan');
+    $this->db->from('tb_total_tagihan');
 
 
     $config['total_rows'] = $this->db->count_all_results();
@@ -340,13 +372,30 @@ class Admin extends CI_Controller
     $data['start'] = $this->uri->segment(3);
     $data['tagihan'] = $this->Admin_model->getDataPageTagihan($config['per_page'], $data['start'], $data['keyword']);
 
-
     $data['bulan'] = $this->db->get('tb_bulan')->result_array();
 
     $this->load->view('templates/header', $data);
     $this->load->view('templates/topbar');
     $this->load->view('templates/sidebar', $data);
     $this->load->view('tagihan/index', $data);
+    $this->load->view('templates/footer');
+  }
+
+  public function rincianTagihan($nim)
+  {
+    $data['user'] = $this->db->get_where('tb_user', ['nim' => $this->session->userdata('nim')])->row_array();
+    $data['judul'] = 'Master Tagihan';
+
+    $data['rtagihan'] = $this->db->get_where('tb_tagihan', ['nim' => $nim, 'status' => 0])->result_array();
+
+    $data['totaltgh'] = $this->db->get_where('tb_total_tagihan', ['nim' => $nim])->row_array();
+
+    $data['bulan'] = $this->db->get('tb_bulan')->result_array();
+
+    $this->load->view('templates/header', $data);
+    $this->load->view('templates/topbar');
+    $this->load->view('templates/sidebar', $data);
+    $this->load->view('tagihan/rincianTagihan', $data);
     $this->load->view('templates/footer');
   }
 
@@ -360,6 +409,7 @@ class Admin extends CI_Controller
         $userNIM = $dataUser->row_array()['nim']; //ambil data NIM dari tabel data
         $nbulan = date('m'); // ambil bulan aktif
         $tghUser = $this->db->get_where('tb_tagihan', ['nim' => $userNIM, 'bulan' => $nbulan]); // cari data nim dari tabel tagihan
+
         if ($tghUser->num_rows() > 0) {
           $idtagihan = $tghUser->row_array()['id_tagihan'];
           redirect('admin/ubahtagihan/' . $idtagihan);
@@ -367,7 +417,7 @@ class Admin extends CI_Controller
           redirect('admin/tambahtagihan/' . $nim);
         }
       } else {
-        $this->session->set_flashdata('pesan', '<div class="alert alert-danger" role="alert">Mahasiswa Tidak Ditemukan</div');
+        $this->session->set_flashdata('pesan', '<div class="alert alert-danger" role="alert">Mahasiswa Tidak Ditemukan</div>');
         redirect('admin/tagihan');
       }
     } else {
@@ -390,8 +440,6 @@ class Admin extends CI_Controller
     $data['idTgh'] = $data['noTahun'] . $data['noBulan'] . $nim;
     $data['total'] = $this->Admin_model->getTotalTagihanByNIM($nim);
     $data['rincian'] = $this->db->get_where('tb_tagihan', ['nim' => $nim])->result_array();
-
-    // die;
 
     if ($this->form_validation->run() == FALSE) {
       $data['judul'] = 'Master Tagihan';
@@ -441,10 +489,29 @@ class Admin extends CI_Controller
 
       $this->db->insert('tb_tagihan', $data);
 
-      $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">Berhasil Ditambahkan</div');
+      // panggil function updateTotal Tagihan
+      $this->updateTotalTagihan($nim, date('m'), $this->input->post('tahun'));
+
+      $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">Berhasil Ditambahkan</div>');
       redirect('admin/tagihan');
     }
   } // end function tambahtagihan
+
+  public function updateTotalTagihan($nim, $bulan, $tahun)
+  {
+    $data['user'] = $this->db->get_where('tb_user', ['nim' => $this->session->userdata('nim')])->row_array();
+
+    $this->db->select_sum('jumlah');
+    $this->db->where('nim', $nim);
+    $this->db->where('status', '0');
+    $total = $this->db->get('tb_tagihan')->row_array();
+
+    $this->db->set('bulan', $bulan);
+    $this->db->set('tahun', $tahun);
+    $this->db->set('total', $total['jumlah']);
+    $this->db->where('nim', $nim);
+    $this->db->update('tb_total_tagihan');
+  }
 
 
   public function ubahTagihan($idtagihan)
@@ -463,6 +530,11 @@ class Admin extends CI_Controller
     $this->form_validation->set_rules('nama', 'Nama', 'required');
 
     $nim = $data['tagihan']['nim'];
+    $bulan = $data['tagihan']['bulan'];
+    $tahun = $data['tagihan']['tahun'];
+
+
+
     $data['total'] = $this->Admin_model->getTotalTagihanByNIM($nim);
     $data['rincian'] = $this->db->get_where('tb_tagihan', ['nim' => $nim])->result_array();
 
@@ -512,7 +584,11 @@ class Admin extends CI_Controller
 
       $this->db->where('id_tagihan', $idtagihan);
       $this->db->update('tb_tagihan', $data);
-      $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">Berhasil Dirubah</div');
+
+      // panggil function updateTotal Tagihan
+      $this->updateTotalTagihan($nim, $bulan, $tahun);
+
+      $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">Berhasil Dirubah</div>');
       redirect('admin/tagihan');
     }
   } // end function ubahTagihan
@@ -664,6 +740,7 @@ class Admin extends CI_Controller
   {
     $data['user'] = $this->db->get_where('tb_user', ['nim' => $this->session->userdata('nim')])->row_array();
     $data['judul'] = 'Master Pembayaran';
+    $data['bulan'] = $this->db->get('tb_bulan')->result_array();
 
     if ($this->input->post('keyword')) {
       $data['pembayaran'] = $this->Pembayaran_model->cariDataPembayaran();
@@ -678,12 +755,13 @@ class Admin extends CI_Controller
   }
 
 
-  public function cek_pembayaran($idtagihan)
+  public function cek_pembayaran($id)
   {
     $data['user'] = $this->db->get_where('tb_user', ['nim' => $this->session->userdata('nim')])->row_array();
     $data['judul'] = 'Master Pembayaran';
+    $data['bulan'] = $this->db->get('tb_bulan')->result_array();
 
-    $data['pembayaran'] = $this->db->get_where('tb_pembayaran', ['id_tagihan' => $idtagihan])->row_array();
+    $data['pembayaran'] = $this->db->get_where('tb_pembayaran', ['id' => $id])->row_array();
 
     $this->load->view('templates/header', $data);
     $this->load->view('templates/topbar');
@@ -692,38 +770,42 @@ class Admin extends CI_Controller
     $this->load->view('templates/footer');
   }
 
-  public function konfirm_pembayaran($idtagihan)
+  public function konfirm_pembayaran($id)
   {
     $this->db->set('status', $this->input->post('rStatus'));
-    $this->db->where('id_tagihan', $idtagihan);
+    $this->db->where('id', $id);
     $this->db->update('tb_pembayaran');
+
+    $nim = $this->db->get_where('tb_pembayaran', ['id' => $id])->row_array()['nim'];
 
     if ($this->input->post('rStatus') == '1') {
       // hapus data tagihan
-      $this->db->where('id_tagihan', $idtagihan);
+      $this->db->where('nim', $nim);
       $this->db->delete('tb_tagihan');
 
-      $this->db->set('status', '1');
-      $this->db->where('id_tagihan', $idtagihan);
-      $this->db->update('tb_pembayaran');
+      $this->db->where('nim', $nim);
+      $this->db->delete('tb_total_tagihan');
     } else { //jika status == 2 artinya reject
       // update status tagihan rejected
       $this->db->set('status', '2');
-      $this->db->where('id_tagihan', $idtagihan);
+      $this->db->where('nim', $nim);
       $this->db->update('tb_tagihan');
 
       $this->db->set('status', '2');
-      $this->db->where('id_tagihan', $idtagihan);
-      $this->db->update('tb_pembayaran');
+      $this->db->where('nim', $nim);
+      $this->db->update('tb_total_tagihan');
+
+      
     }
     redirect('admin/pembayaran');
   } // 
-
 
   public function reqTagihan()
   {
     $data['user'] = $this->db->get_where('tb_user', ['nim' => $this->session->userdata('nim')])->row_array();
     $data['judul'] = 'Request Tagihan';
+
+    $data['bulan'] = $this->db->get('tb_bulan')->result_array();
 
     $queryReq = "SELECT * FROM tb_req_tagihan ORDER BY date_req DESC";
     $data['reqTagihan'] = $this->db->query($queryReq)->result_array();
@@ -735,52 +817,30 @@ class Admin extends CI_Controller
     $this->load->view('templates/footer');
   }
 
-  public function responReq($idtagihan)
+  public function responReq($id)
   {
-    $reqTagihan = $this->db->get_where('tb_req_tagihan', ['id_tagihan' => $idtagihan])->row_array();
-    $sisa = $reqTagihan['sisa_req'] - 1;
+    $reqTagihan = $this->db->get_where('tb_req_tagihan', ['id' => $id])->row_array();
 
-    $this->db->where('id_tagihan', $idtagihan);
+    $pesan_resp = $this->input->post('pesan_resp');
     if ($this->input->post('btn_resp') == '1') :
-      $this->db->set('status', 1);
+      $status = '1';
     elseif ($this->input->post('btn_resp') == '2') :
-      $this->db->set('status', 2);
+      $status = '2';
     endif;
-    $this->db->set('sisa_req', $sisa);
-    $this->db->set('date_resp', time());
-    $this->db->set('pesan_resp', $this->input->post('inputRespon'));
-    $this->db->update('tb_req_tagihan');
+    $sisa = $reqTagihan['sisa_req'] - 1;
+    $keterangan = $this->input->post('keterangan');
 
+    $data = [
+      'pesan_resp' => $pesan_resp,
+      'status' => $status,
+      'sisa_req' => $sisa,
+      'date_resp' => time(),
+      'keterangan' => $keterangan
+    ];
+
+    $this->db->where('id', $id);
+    $this->db->update('tb_req_tagihan', $data);
+    $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">Berhasil Dirubah</div>');
     redirect('admin/reqTagihan');
   }
-
-  // public function approveReq($idtagihan)
-  // {
-  //   $reqTagihan = $this->db->get_where('tb_req_tagihan', ['id_tagihan' => $idtagihan])->row_array();
-  //   $sisa = $reqTagihan['sisa_req'] - 1;
-
-  //   $this->db->where('id_tagihan', $idtagihan);
-  //   $this->db->set('status', 1);
-  //   $this->db->set('sisa_req', $sisa);
-  //   $this->db->set('date_resp', time());
-  //   $this->db->set('pesan_resp', $this->input->post('inputRespon'));
-  //   $this->db->update('tb_req_tagihan');
-
-  //   redirect('admin/reqTagihan');
-  // }
-
-  // public function rejectReq($idtagihan)
-  // {
-  //   $reqTagihan = $this->db->get_where('tb_req_tagihan', ['id_tagihan' => $idtagihan])->row_array();
-  //   $sisa = $reqTagihan['sisa_req'] - 1;
-
-  //   $this->db->where('id_tagihan', $idtagihan);
-  //   $this->db->set('status', 2);
-  //   $this->db->set('sisa_req', $sisa);
-  //   $this->db->set('date_resp', time());
-  //   $this->db->set('pesan_resp', $this->input->post('inputRespon'));
-  //   $this->db->update('tb_req_tagihan');
-
-  //   redirect('admin/reqTagihan');
-  // }
 } // end controler

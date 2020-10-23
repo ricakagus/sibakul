@@ -27,32 +27,48 @@
 
         <div class="col-md-8">
           <div class="card card-primary card-outline">
-            <!-- <div class="card-header">
-            </div> -->
+
             <form action="<?= base_url('mahasiswa/inputReqTagihan'); ?>" method="POST">
               <div class="card-body">
                 <div class="row">
                   <div class="col-md-4">
                     <div class="form-group">
-                      <label>ID Tagihan</label>
-                      <input type="text" class="form-control" name="idtagihan" readonly value="<?= $tagihan['id_tagihan']; ?>">
+                      <label>Periode</label>
+                      <?php foreach ($bulan as $b) :
+                        if ($b['id'] == $totaltgh['bulan']) :
+                          $namabulan = $b['bulan'];
+                        endif;
+                      endforeach;
+                      ?>
+                      <input type="text" class="form-control" name="periode" readonly value="<?= $namabulan . ' ' . $totaltgh['tahun']; ?>">
                     </div>
                     <div class="form-group">
                       <label>NIM</label>
-                      <input type="text" class="form-control" name="nim" readonly value="<?= $tagihan['nim']; ?>">
+                      <input type="text" class="form-control" name="nim" readonly value="<?= $totaltgh['nim']; ?>">
                     </div>
                     <div class="form-group">
                       <label>Nama</label>
-                      <input type="text" class="form-control" name="nama" readonly value="<?= $tagihan['nama']; ?>">
+                      <input type="text" class="form-control" name="nama" readonly value="<?= $totaltgh['nama']; ?>">
                     </div>
                   </div>
                   <div class="col-md-8">
-                    <div class="form-group">
-                      <label>Pesan Pengajuan</label>
-                      <?= form_error('pesan_req', '<small class="font-italic text-danger pl-2">', '</small>'); ?>
-                      <textarea class="form-control" rows="8" name="pesan_req" placeholder="Enter ..."></textarea>
+                    <label for="">Request Tagihan</label>
+                    
+
+                    <div class="row">
+                      <div class="col-sm-8">
+                        <?= form_error('pesan_req', '<small class=text-danger pl-3">', '</small>'); ?>
+                        <span class="d-block">Menjadi:</span>
+                        <div class="input-group input-group-sm">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text">Rp.</span>
+                          </div>
+                          <input type="number" class="form-control" name="pesan_req" placeholder="0">
+                        </div>
+                      </div>
                     </div>
                   </div>
+
                 </div>
                 <div class="row d-flex justify-content-between">
                   <div class="col-4 float-left">

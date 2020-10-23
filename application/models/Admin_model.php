@@ -18,7 +18,7 @@ class Admin_model extends CI_Model
 
   public function getQtyPembayaran()
   {
-    $bayarquery = "SELECT COUNT('id_tagihan') as 'bayar' FROM tb_pembayaran WHERE status='0'";
+    $bayarquery = "SELECT COUNT('id') as 'bayar' FROM tb_pembayaran WHERE status='0'";
     return $this->db->query($bayarquery)->row_array();
   }
 
@@ -45,10 +45,21 @@ class Admin_model extends CI_Model
   public function getDataPageTagihan($limit, $start, $keyword = null)
   {
     if ($keyword) {
-      $this->db->like('id_tagihan', $keyword);
-      $this->db->or_like('nim', $keyword);
+      $this->db->like('nim', $keyword);
       $this->db->or_like('nama', $keyword);
-      $this->db->or_like('status', $keyword);
+    }
+    $this->db->order_by('tahun', 'DESC');
+    $this->db->order_by('bulan', 'DESC');
+    $this->db->order_by('nim', 'ASC');
+    return $this->db->get('tb_total_tagihan', $limit, $start)->result_array();
+  }
+
+  public function getDataPageRincianTagihan($limit, $start, $keyword = null)
+  {
+    if ($keyword) {
+      $this->db->where('nim', $keyword);
+      // $this->db->or_like('nama', $keyword);
+      $this->db->where('status', '0');
     }
     return $this->db->get('tb_tagihan', $limit, $start)->result_array();
   }

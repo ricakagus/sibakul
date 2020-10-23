@@ -5,7 +5,14 @@
     <div class="container-fluid">
       <div class="row mb-0">
         <div class="col-sm-8">
-          <h1 class="m-0 text-dark"><?= $judul; ?></h1>
+          <h1 class="m-0 text-dark d-inline"><?= $judul; ?></h1>
+          <small>
+            <?php if ($totaltgh['status'] == '1') : ?>
+              <span class="badge badge-warning">paid</span>
+            <?php elseif ($totaltgh['status'] == '2') : ?>
+              <span class="badge badge-danger">rejected</span>
+            <?php endif; ?>
+          </small>
         </div><!-- /.col -->
         <!-- <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
@@ -23,18 +30,62 @@
   <div class="content">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-9">
           <div class="card card-primary card-outline">
             <div class="card-header">
-              <div class="row d-flex justify-content-end">
-                <div class="col-md-8   text-right">
-                  <span class="h5">Total Tagihan:</span>
-                  <span class="h1 px-2 rounded bg-danger"> Rp. <?= number_format($totaltgh['jumlah'], '0', ',', '.'); ?> </span>
+              <div class="row d-flex justify-content-between">
+                <div class="col-md-7 col-lg-5 text-center">
+                  <?php
+                  if ($reqtgh) :
+
+                    $id = $reqtgh['id'];
+                    $sisa = $reqtgh['sisa_req'];
+                    $status = $reqtgh['status'];
+                  ?>
+                    <?php if ($sisa == '2' and $status == '0') : ?>
+                      <small class="text-dark ml-2">sedang diproses, sisa request <?= $sisa ?> kali</small>
+                      <a href="<?= base_url('mahasiswa/editReqTagihan/') . $id; ?>" class="btn btn-warning btn-sm btn-block"><i class="far fa-fw fa-envelope"></i> Ubah Request</a>
+                    <?php elseif ($sisa == '2' and $status == '1') : ?>
+                      <small class="text-success ml-2">request disetujui, sisa request <?= $sisa ?> kali. <i><a href="" class="small" data-toggle="modal" data-target="#modal-pesanResp">lihat pesan admin</a></i></small>
+                      <a href="<?= base_url('mahasiswa/editReqTagihan/') . $id; ?>" class="btn btn-success btn-sm btn-block"><i class="far fa-fw fa-envelope"></i> Request Tagihan</a>
+                    <?php elseif ($sisa == '2' and $status == '2') : ?>
+                      <small class="text-danger ml-2">request ditolak, sisa request <?= $sisa ?> kali. <i><a href="" class="small" data-toggle="modal" data-target="#modal-pesanResp">lihat pesan admin</a></i></small>
+                      <a href="<?= base_url('mahasiswa/editReqTagihan/') . $id; ?>" class="btn btn-success btn-sm btn-block"><i class="far fa-fw fa-envelope"></i> Request Tagihan</a>
+                    <?php elseif ($sisa == '1' and $status == '0') : ?>
+                      <small class="text-dark ml-2">sedang diproses, sisa request <?= $sisa ?> kali</small>
+                      <a href="<?= base_url('mahasiswa/editReqTagihan/') . $id; ?>" class="btn btn-warning btn-sm btn-block"><i class="far fa-fw fa-envelope"></i> Ubah Request</a>
+                    <?php elseif ($sisa == '1' and $status == '1') : ?>
+                      <small class="text-success ml-2">request disetujui, sisa request <?= $sisa ?> kali. <i><a href="" class="small" data-toggle="modal" data-target="#modal-pesanResp">lihat pesan admin</a></i></small>
+                      <a href="<?= base_url('mahasiswa/editReqTagihan/') . $id; ?>" class="btn btn-success btn-sm btn-block"><i class="far fa-fw fa-envelope"></i> Request Tagihan</a>
+                    <?php elseif ($sisa == '1' and $status == '2') : ?>
+                      <small class="text-danger ml-2">request ditolak, sisa request <?= $sisa ?> kali. <i><a href="" class="small" data-toggle="modal" data-target="#modal-pesanResp">lihat pesan admin</a></i></small>
+                      <a href="<?= base_url('mahasiswa/editReqTagihan/') . $id; ?>" class="btn btn-success btn-sm btn-block"><i class="far fa-fw fa-envelope"></i> Request Tagihan</a>
+                    <?php elseif ($sisa == '0' and $status == '0') : ?>
+                      <small class="text-dark ml-2">sedang diproses, sisa request <?= $sisa ?> kali</small>
+                      <a href="<?= base_url('mahasiswa/editReqTagihan/') . $id; ?>" class="btn btn-warning btn-sm btn-block"><i class="far fa-fw fa-envelope"></i> Ubah Request</a>
+                    <?php elseif ($sisa == '0' and $status == '1') : ?>
+                      <small class="text-success ml-2">request disetujui, sisa request <?= $sisa ?> kali. <i><a href="" class="small" data-toggle="modal" data-target="#modal-pesanResp">lihat pesan admin</a></i></small>
+                      <button type="button" class="btn btn-secondary btn-sm btn-block" disabled><i class="far fa-fw fa-envelope"></i> Request Tagihan</button>
+                    <?php elseif ($sisa == '0' and $status == '2') : ?>
+                      <small class="text-danger ml-2">request ditolak, sisa request <?= $sisa ?> kali. <i><a href="" class="small" data-toggle="modal" data-target="#modal-pesanResp">lihat pesan admin</a></i></small>
+                      <button type="button" class="btn btn-secondary btn-sm btn-block" disabled><i class="far fa-fw fa-envelope"></i> Request Tagihan</button>
+
+                    <?php endif; ?>
+                  <?php else : ?>
+
+                    <small class="text-dark ml-2">sedang diproses, sisa request 2 kali</small>
+                    <a href="<?= base_url('mahasiswa/inputReqTagihan'); ?>" class="btn btn-success btn-sm btn-block"><i class="far fa-fw fa-envelope"></i> Request Tagihan</a>
+                  <?php endif; ?>
+
+                </div>
+                <div class="col-md-5 col-lg-7 text-right mt-3">
+                  <span class="h5">Total :</span>
+                  <span class="h2 px-2 rounded bg-danger"> Rp. <?= number_format($totaltgh['total'], '0', ',', '.'); ?> </span>
+
                 </div>
               </div>
 
             </div>
-
             <div class="card-body p-0">
               <table id="example2" class="table table-hover projects table-sm table-striped">
                 <thead class="bg-gray-dark">
@@ -105,3 +156,60 @@
   <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
+
+
+<div class="modal fade" id="modal-pesanResp">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-secondary">
+        <h4 class="modal-title">Respon Admin</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <div class="card">
+          <ul class="list-group">
+            <li class="list-group-item  bg-light">
+              <strong>Request Mahasiswa: </strong>
+              <?php
+              if ($reqtgh['jenis'] == 'minus') :
+                $jenis = 'kurangi tagihan';
+              elseif ($reqtgh['jenis'] == 'plus') :
+                $jenis = 'tambah tagihan';
+              endif;
+              echo $jenis . ' menjadi Rp.' . number_format($reqtgh['pesan_req'], '0', ',', '.');
+              ?>
+            </li>
+            <li class="list-group-item">
+              <strong>Status Request: </strong>
+              <?php
+              if ($reqtgh['status'] == '1') :
+                // $status = 'disetujui';
+                echo "<span class='text-success'>disetujui</span>";
+              // $status;
+              elseif ($reqtgh['status'] == '2') :
+                // $status = 'ditolak';
+                echo "<span class='text-danger'>ditolak</span>";
+              endif;
+
+              ?>
+            </li>
+            <li class="list-group-item bg-light">
+              <strong>Respon Admin: </strong>
+              <?= $reqtgh['pesan_resp']; ?>
+
+            </li>
+          </ul>
+        </div>
+
+      </div>
+      <div class="modal-footer float-right">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">close</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>

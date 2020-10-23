@@ -8,7 +8,7 @@ class Mahasiswa_model extends CI_Model
     $qMhs = "SELECT * FROM `tb_user` WHERE `role_id`=2 ORDER BY `nim`";
     return $this->db->query($qMhs)->result_array();
   }
-
+ 
   public function tambahDataMahasiswa()
   {
     $data = [

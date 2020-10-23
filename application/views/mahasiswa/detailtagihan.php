@@ -227,7 +227,7 @@
                   <table class="table table-borderless mb-0">
                     <tr class="h4">
                       <th style="width: 30%;"></th>
-                      <th style="width:25%">Total</th>
+                      <th style="width:25%">Jumlah</th>
                       <td>: Rp. <?= number_format($tagihan['jumlah'], '0', ',', '.'); ?></td>
                     </tr>
                   </table>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 10, 2020 at 07:59 AM
+-- Generation Time: Oct 23, 2020 at 03:54 PM
 -- Server version: 10.1.37-MariaDB
 -- PHP Version: 7.1.25
 
@@ -103,13 +103,23 @@ INSERT INTO `tb_menu` (`id`, `menu`, `ikon`) VALUES
 
 CREATE TABLE `tb_pembayaran` (
   `id` int(11) NOT NULL,
-  `id_tagihan` varchar(20) NOT NULL,
+  `bulan` int(2) NOT NULL,
+  `tahun` int(4) NOT NULL,
   `nim` varchar(128) NOT NULL,
-  `jumlah` int(11) NOT NULL,
-  `tgl_bayar` varchar(128) NOT NULL,
+  `total` int(11) NOT NULL,
+  `tgl_upload` varchar(128) NOT NULL,
   `bukti` varchar(128) NOT NULL,
   `status` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tb_pembayaran`
+--
+
+INSERT INTO `tb_pembayaran` (`id`, `bulan`, `tahun`, `nim`, `total`, `tgl_upload`, `bukti`, `status`) VALUES
+(1, 10, 2020, '1218001', 4000000, '1603453779', '2020101218001.jpg', 1),
+(5, 10, 2020, '1216008', 2500000, '1603460453', '2020101216008.jpg', 1),
+(6, 10, 2020, '1218002', 1000000, '1603461124', '2020101218002.jpg', 1);
 
 -- --------------------------------------------------------
 
@@ -119,16 +129,27 @@ CREATE TABLE `tb_pembayaran` (
 
 CREATE TABLE `tb_req_tagihan` (
   `id` int(11) NOT NULL,
+  `bulan` int(2) NOT NULL,
+  `tahun` int(4) NOT NULL,
   `date_req` int(11) NOT NULL,
-  `id_tagihan` varchar(20) NOT NULL,
   `nim` varchar(11) NOT NULL,
   `nama` varchar(128) NOT NULL,
+  `jenis` varchar(10) NOT NULL,
   `pesan_req` text NOT NULL,
   `pesan_resp` text NOT NULL,
   `status` int(1) NOT NULL,
   `sisa_req` int(11) NOT NULL,
-  `date_resp` int(11) NOT NULL
+  `date_resp` int(11) NOT NULL,
+  `keterangan` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tb_req_tagihan`
+--
+
+INSERT INTO `tb_req_tagihan` (`id`, `bulan`, `tahun`, `date_req`, `nim`, `nama`, `jenis`, `pesan_req`, `pesan_resp`, `status`, `sisa_req`, `date_resp`, `keterangan`) VALUES
+(2, 10, 2020, 1603453711, '1218001', 'MARTEN UMBU LOLO', 'plus', '4000000', 'di ijikan', 1, 1, 1603453725, 'tagihan bulan depan dikurangi Rp.1.000.000'),
+(6, 10, 2020, 1603456283, '1216008', 'PETRUS RAFAEL DHAE', 'minus', '2500000', 'maaf tidak bisa', 1, 0, 1603456328, 'tagihan selanjutnya ditambah Rp. 660.000');
 
 -- --------------------------------------------------------
 
@@ -189,7 +210,7 @@ CREATE TABLE `tb_tagihan` (
   `id` int(11) NOT NULL,
   `id_tagihan` varchar(20) NOT NULL,
   `created` int(11) NOT NULL,
-  `bulan` varchar(20) NOT NULL,
+  `bulan` int(2) NOT NULL,
   `tahun` int(4) NOT NULL,
   `deadline` int(11) NOT NULL,
   `nim` varchar(8) NOT NULL,
@@ -214,19 +235,43 @@ CREATE TABLE `tb_tagihan` (
 --
 
 INSERT INTO `tb_tagihan` (`id`, `id_tagihan`, `created`, `bulan`, `tahun`, `deadline`, `nim`, `nama`, `jumlah`, `cuti`, `dpp`, `almamater`, `pspt`, `kp`, `pkp`, `ta`, `pta`, `spp`, `konversi`, `denda`, `status`) VALUES
-(1, '2020091216008', 1599709634, '9', 2020, 1601416800, '1216008', 'PETRUS RAFAEL DHAE', 1800000, 0, 850000, 200000, 0, 0, 0, 0, 0, 750000, 0, 0, 0),
-(2, '2020091216015', 1599709634, '9', 2020, 1601416800, '1216015', 'MIKIRON WEYA', 1520000, 500000, 300000, 0, 0, 0, 0, 0, 0, 700000, 0, 20000, 0),
-(3, '2020091218001', 1599709634, '9', 2020, 1601416800, '1218001', 'MARTEN UMBU LOLO', 2260000, 500000, 0, 450000, 0, 800000, 0, 0, 0, 500000, 0, 10000, 0),
-(4, '2020091218002', 1599709634, '9', 2020, 1601416800, '1218002', 'IGNASIUS ALANS TUNJUNG', 1780000, 0, 0, 0, 0, 0, 0, 1300000, 0, 450000, 0, 30000, 0),
-(5, '2020091218003', 1599709634, '9', 2020, 1601416800, '1218003', 'FLORIDA DOWA', 1680000, 500000, 500000, 150000, 0, 0, 0, 0, 0, 500000, 0, 30000, 0),
-(6, '2020091218004', 1599709634, '9', 2020, 1601416800, '1218004', 'DAVID UMBU NGAILU', 500000, 0, 0, 0, 0, 0, 0, 0, 0, 500000, 0, 0, 0),
-(7, '2020091218006', 1599709634, '9', 2020, 1601416800, '1218006', 'MARSELINUS MONGGO', 1220000, 0, 700000, 0, 0, 0, 0, 0, 0, 500000, 0, 20000, 0),
-(8, '2020091218007', 1599709634, '9', 2020, 1601416800, '1218007', 'WENIUS LOKOBAL', 500000, 0, 0, 0, 0, 0, 0, 0, 0, 500000, 0, 0, 0),
-(9, '2020091218008', 1599709634, '9', 2020, 1601416800, '1218008', 'GAUDENSIA NATALIA LEDE', 500000, 0, 0, 0, 0, 0, 0, 0, 0, 500000, 0, 0, 0),
-(10, '2020091218009', 1599709634, '9', 2020, 1601416800, '1218009', 'PAULUS REHI KALLI GHOBA', 530000, 0, 0, 0, 0, 0, 0, 0, 0, 500000, 0, 30000, 0),
-(11, '2020091219012', 1599709634, '9', 2020, 1601416800, '1219012', 'ALEXANDER DINGU JAGA MEHA', 1350000, 0, 600000, 150000, 0, 0, 0, 0, 0, 550000, 0, 50000, 0),
-(12, '2020101216008', 1602301689, '10', 2020, 1604098800, '1216008', 'PETRUS RAFAEL DHAE', 1360000, 0, 150000, 0, 0, 800000, 0, 0, 0, 400000, 0, 10000, 0),
-(13, '2020101218001', 1602303057, '10', 2020, 1604098800, '1218001', 'MARTEN UMBU LOLO', 850000, 0, 350000, 0, 0, 0, 0, 0, 0, 500000, 0, 0, 0);
+(5, '2020091218003', 1599709634, 9, 2020, 1601416800, '1218003', 'FLORIDA DOWA', 1680000, 500000, 500000, 150000, 0, 0, 0, 0, 0, 500000, 0, 30000, 0),
+(6, '2020091218004', 1599709634, 9, 2020, 1601416800, '1218004', 'DAVID UMBU NGAILU', 500000, 0, 0, 0, 0, 0, 0, 0, 0, 500000, 0, 0, 0),
+(7, '2020091218006', 1599709634, 9, 2020, 1601416800, '1218006', 'MARSELINUS MONGGO', 1220000, 0, 700000, 0, 0, 0, 0, 0, 0, 500000, 0, 20000, 0),
+(8, '2020091218007', 1599709634, 9, 2020, 1601416800, '1218007', 'WENIUS LOKOBAL', 500000, 0, 0, 0, 0, 0, 0, 0, 0, 500000, 0, 0, 0),
+(9, '2020091218008', 1599709634, 9, 2020, 1601416800, '1218008', 'GAUDENSIA NATALIA LEDE', 500000, 0, 0, 0, 0, 0, 0, 0, 0, 500000, 0, 0, 0),
+(10, '2020091218009', 1599709634, 9, 2020, 1601416800, '1218009', 'PAULUS REHI KALLI GHOBA', 1030000, 0, 0, 0, 0, 0, 0, 0, 0, 1000000, 0, 30000, 0),
+(11, '2020091219012', 1599709634, 9, 2020, 1601416800, '1219012', 'ALEXANDER DINGU JAGA MEHA', 1350000, 0, 600000, 150000, 0, 0, 0, 0, 0, 550000, 0, 50000, 0),
+(24, '2020101218009', 1603349177, 10, 2020, 1604098800, '1218009', 'PAULUS REHI KALLI GHOBA', 170000, 0, 0, 0, 0, 0, 0, 0, 0, 150000, 0, 20000, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_total_tagihan`
+--
+
+CREATE TABLE `tb_total_tagihan` (
+  `id` int(11) NOT NULL,
+  `nim` varchar(8) NOT NULL,
+  `nama` varchar(64) NOT NULL,
+  `bulan` int(2) NOT NULL,
+  `tahun` int(4) NOT NULL,
+  `total` int(11) NOT NULL,
+  `status` int(2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tb_total_tagihan`
+--
+
+INSERT INTO `tb_total_tagihan` (`id`, `nim`, `nama`, `bulan`, `tahun`, `total`, `status`) VALUES
+(4, '1218003', 'FLORIDA DOWA', 9, 2020, 1680000, 0),
+(5, '1218004', 'DAVID UMBU NGAILU', 9, 2020, 500000, 0),
+(7, '1218007', 'WENIUS LOKOBAL', 9, 2020, 500000, 0),
+(8, '1218008', 'GAUDENSIA NATALIA LEDE', 9, 2020, 500000, 0),
+(9, '1218009', 'PAULUS REHI KALLI GHOBA', 10, 2020, 1200000, 0),
+(12, '1219012', 'ALEXANDER DINGU JAGA MEHA', 9, 2020, 1350000, 0),
+(13, '1218006', 'MARSELINUS MONGGO', 9, 2020, 1220000, 0);
 
 -- --------------------------------------------------------
 
@@ -385,6 +430,12 @@ ALTER TABLE `tb_tagihan`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `tb_total_tagihan`
+--
+ALTER TABLE `tb_total_tagihan`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `tb_user`
 --
 ALTER TABLE `tb_user`
@@ -416,13 +467,13 @@ ALTER TABLE `tb_menu`
 -- AUTO_INCREMENT for table `tb_pembayaran`
 --
 ALTER TABLE `tb_pembayaran`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tb_req_tagihan`
 --
 ALTER TABLE `tb_req_tagihan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tb_role`
@@ -440,6 +491,12 @@ ALTER TABLE `tb_sub_menu`
 -- AUTO_INCREMENT for table `tb_tagihan`
 --
 ALTER TABLE `tb_tagihan`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+
+--
+-- AUTO_INCREMENT for table `tb_total_tagihan`
+--
+ALTER TABLE `tb_total_tagihan`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --

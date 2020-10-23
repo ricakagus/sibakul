@@ -32,17 +32,24 @@
                 <div class="card-header">
                 <?php endif; ?>
 
-                <span class="">ID TAGIHAN:</span><br>
+                <span class="">PERIODE: </span><br>
                 <?php if (!$tagihan) : ?>
                   <small class="h6 text-right text-success">-</small>
                 <?php else : ?>
-                  <span class="h3 text-right"># <?= $tagihan['id_tagihan']; ?> #</span>
+                  <?php foreach ($bulan as $b) :
+                    if ($b['id'] == $tagihan['bulan']) :
+                      $namabulan = $b['bulan'];
+                    endif;
+                  endforeach;
+                  ?>
+
+                  <span class="h3 text-right"># <?= $namabulan . ' ' . $tagihan['tahun']; ?> #</span>
                 <?php endif; ?>
 
                 </div>
                 <?= $this->session->flashdata('pesan'); ?>
                 <?= form_open_multipart('mahasiswa/bayarkuliah'); ?>
-
+ 
                 <ul class="list-group list-group-flush">
                   <li class="list-group-item">
                     <?php if (!$tagihan) : ?>
@@ -58,20 +65,20 @@
                   <li class="list-group-item">
                     <div class="form-group row">
                       <label for="jumlah" class="col-sm-3 col-form-label">Jumlah</label>
-                      <div class="col-sm-9">
-                        <input type="number" class="form-control" id="jumlah" name="jumlah" placeholder="Jumlah dibayarkan" value="<?= $tagihan['jumlah']; ?>" readonly>
+                      <div class="col-md-9">
+                        <div class="input-group mb-3">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">Rp.</span>
+                          </div>
+                          <input type="text" class="form-control" id="jumlah" name="jumlah" placeholder="Jumlah dibayarkan" value="<?= number_format($tagihan['total'], '0', ',', '.'); ?>" readonly aria-describedby="basic-addon1">
+                        </div>
                         <?= form_error('jumlah', '<small class=text-danger pl-3">', '</small>'); ?>
                       </div>
                     </div>
 
                     <div class="form-group row">
-                      <label for="bukti" class="col-sm-3 col-form-label">Bukti Bayar</label>
-                      <div class="col-sm-9">
-                        <div class="custom-file">
-                          <input type="file" class="custom-file-input" id="bukti" name="bukti">
-                          <label class="custom-file-label" for="bukti">pilih file</label>
-                        </div>
-                      </div>
+                      <label for="buktib" class="col-sm-3 col-form-label">Bukti Bayar</label>
+                      <input type="file" class="form-control-file col-sm-9" id="buktib" name="buktib">
                     </div>
                   </li>
                   <li class="list-group-item text-center">

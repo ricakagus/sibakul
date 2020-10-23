@@ -44,7 +44,7 @@
      <li class="nav-item">
 
        <a class="nav-link" data-toggle="" href="<?= base_url('auth/signout'); ?>">
-         <strong>Keluar</strong>
+         <strong class="text-undeline"><i class="fas fa-power-off text-danger"></i> Keluar</strong>
          <!-- <i class="fas fa-sign-out-alt"> </i> -->
        </a>
      </li>

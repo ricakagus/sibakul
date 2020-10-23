@@ -53,9 +53,9 @@
                 <thead>
                   <tr>
                     <th style="width: 1%">#</th>
-                    <th style="width: 10%">ID Tagihan</th>
+                    <th style="width: 10%">Periode</th>
                     <th style="width: 10%">NIM</th>
-                    <th style="width: 10%">Jumlah</th>
+                    <th style="width: 10%">Total</th>
                     <th style="width: 10%" class="text-center">Status</th>
                     <!-- <th style="width: 10%">Action</th> -->
                   </tr>
@@ -65,17 +65,26 @@
                   <?php foreach ($pembayaran as $pby) : ?>
                     <tr>
                       <td><?= $i; ?></td>
-                      <td><?= $pby['id_tagihan']; ?></td>
+                      <td>
+                        <?php
+                        foreach ($bulan as $b) :
+                          if ($pby['bulan'] == $b['id']) :
+                            $namabulan = $b['bulan'];
+                          endif;
+                        endforeach;
+                        ?>
+                        <?= $namabulan . ' ' . $pby['tahun']; ?>
+                      </td>
                       <td><?= $pby['nim']; ?></td>
-                      <td class="">Rp. <?= number_format($pby['jumlah'], '0', ',', '.'); ?></td>
+                      <td class="">Rp. <?= number_format($pby['total'], '0', ',', '.'); ?></td>
 
                       <td class="project-state">
                         <?php if ($pby['status'] == 0) : ?>
-                          <a href="<?= base_url('admin/cek_pembayaran/') . $pby['id_tagihan']; ?>" class="badge badge-warning">paid</a>
+                          <a href="<?= base_url('admin/cek_pembayaran/') . $pby['id']; ?>" class="badge badge-pill badge-warning">paid</a>
                         <?php elseif ($pby['status'] == '2') : ?>
-                          <span class="badge badge-danger">rejected</span>
+                          <span class="badge badge-pill badge-danger">rejected</span>
                         <?php else : ?>
-                          <span class="badge badge-success">paid off</span>
+                          <span class="badge badge-pill badge-success">paid off</span>
                         <?php endif; ?>
                       </td>
 

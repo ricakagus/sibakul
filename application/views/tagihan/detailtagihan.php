@@ -63,14 +63,25 @@
                   <a href="<?= base_url('admin/cek_pembayaran/') . $tagihan['id_tagihan']; ?>" class="badge badge-warning">paid</a>
                 <?php endif; ?>
                 <br>
-                <b>Tagihan Bulan:</b> <?= $bulan_tagihan; ?> <br> 
+                <b>Tagihan Bulan:</b> <?= $bulan_tagihan; ?> <br>
                 <?php if ($tagihan['status'] == 0) : ?>
                   <a href="" class="btn btn-info btn-block disabled">Cek Pembayaran</a>
                 <?php else : ?>
                   <a href="<?= base_url('admin/cek_pembayaran/') . $tagihan['id_tagihan']; ?>" class="btn btn-info btn-block">Cek Pembayaran</a>
                 <?php endif; ?>
 
-                <a href="<?= base_url('admin/ubahTagihan/') . $tagihan['id_tagihan']; ?>" onclick="return confirm('ubah data, yakin?');" class="btn btn-warning btn-block ">Ubah Tagihan</a>
+
+                <?php
+                if ($tagihan['tahun'] == date('Y')) :
+                  if ($tagihan['bulan'] == date('m')) :
+                ?>
+                    <a href="<?= base_url('admin/ubahTagihan/') . $tagihan['id_tagihan']; ?>" onclick="return confirm('ubah data, yakin?');" class="btn btn-warning btn-block ">Ubah Tagihan</a>
+                <?php
+                  endif;
+                endif;
+                ?>
+
+
               </div>
               <div class="col-md-4 invoice-col">
 
@@ -181,7 +192,7 @@
                 <p class="lead">Metode Pembayaran:</p>
                 <img src="<?= base_url('assets/'); ?>img/BPD-BALI.jpg" alt="logo BPD Bali" width="auto" height="60px">
 
-                <p class="text-muted well well-sm shadow-none" style="margin-top: 10px;">
+                <!-- <p class="text-muted well well-sm shadow-none" style="margin-top: 10px;">
                   <ol>
                     <li>Mahasiswa melakukan setoran tunai pada Bank BPD Bali</li>
                     <li>Mahasiswa menyebutkan Nama Kampus dan NIM pada Teller</li>
@@ -189,7 +200,7 @@
                     <li>Slip (bukti setoran) diunggah (upload) sebagai bukti pembayaran biaya kuliah</li>
                     <li>Diharapkan mahasiswa menyimpan slip sebagai arsip pribadi</li>
                   </ol>
-                </p>
+                </p> -->
               </div>
               <!-- /.col -->
               <div class="col-6">
@@ -205,7 +216,7 @@
                 <table class="table table-borderless mb-0">
                   <tr class="h4">
                     <th style="width: 30%;"></th>
-                    <th style="width:25%">Total</th>
+                    <th style="width:25%">Jumlah</th>
                     <td>: Rp. <?= number_format($tagihan['jumlah'], '0', ',', '.'); ?></td>
                   </tr>
                 </table>
