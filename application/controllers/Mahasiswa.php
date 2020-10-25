@@ -73,12 +73,15 @@ class Mahasiswa extends CI_Controller
     $data['tagihan'] = $this->Mahasiswa_model->getDataPageTagihan($config['per_page'], $data['start'], $this->session->userdata('nim'));
 
     $data['bulan'] = $this->db->get('tb_bulan')->result_array();
-    // $data['reqTagihan'] = $this->db->get_where('tb_req_tagihan', ['id_tagihan' => $data['tagihan']['id_tagihan']])->row_array();
 
     $data['reqtgh'] = $this->db->get_where('tb_req_tagihan', ['nim' => $nim, 'bulan' => $bulan, 'tahun' => $tahun])->row_array();
 
     $data['totaltgh'] = $this->db->get_where('tb_total_tagihan', ['nim' => $nim])->row_array();
-    // $this->Mahasiswa_model->getTotalTagihan($this->session->userdata['nim']);
+
+    
+
+    // var_dump("Data Tagihan: " . $data['tagihan']);
+    
 
     $this->load->view('templates/header', $data);
     $this->load->view('templates/topbar');
@@ -100,7 +103,7 @@ class Mahasiswa extends CI_Controller
 
     $data['user'] = $this->db->get_where('tb_user', ['nim' => $nim])->row_array();
 
-    $data['reqTagihan'] = $this->db->get_where('tb_req_tagihan', ['id_tagihan' => $data['tagihan']['id_tagihan']])->row_array();
+
 
     $this->load->view('templates/header', $data);
     $this->load->view('templates/topbar');

@@ -25,6 +25,7 @@
 
       <div class="row">
         <div class="col-md-8">
+          <?= $this->session->flashdata('pesan'); ?>
           <div class="card card-primary card-outline">
             <div class="card-header">
 
@@ -76,8 +77,7 @@
                       <?php endif; ?>
                       <td class="project-state">
                         <a class="btn btn-primary btn-sm" href="<?= base_url('admin/detailMahasiswa/') . $m['nim']; ?>"><i class="fas fa-eye"></i></a>
-
-                        <a class="btn btn-danger btn-sm" href="<?= base_url('admin/hapusMahasiswa/') . $m['nim']; ?>"><i class="fas fa-trash-alt"></i></a>
+                        <a class="btn btn-danger btn-sm" href="<?= base_url('admin/hapusMahasiswa/') . $m['nim']; ?>" onclick="return confirm('hapus data mahasiswa, yakin?');" title="hapus"><i class="fas fa-trash-alt"></i></a>
 
                       </td>
                     </tr>

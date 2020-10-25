@@ -43,13 +43,17 @@
                   endforeach;
                   ?>
 
-                  <span class="h3 text-right"># <?= $namabulan . ' ' . $tagihan['tahun']; ?> #</span>
+                  <p class="h3 m-0 p-0"># <?= $namabulan . ' ' . $tagihan['tahun']; ?> #</p>
+
+                  <?php if ($tagihan['status'] == '2') : ?>
+                    <small class="m-0 font-italic">*bukti pembayaran <b>tidak diterima</b>, silahkan upload ulang bukti pembayaran yang benar</small>
+                  <?php endif; ?>
                 <?php endif; ?>
 
                 </div>
                 <?= $this->session->flashdata('pesan'); ?>
                 <?= form_open_multipart('mahasiswa/bayarkuliah'); ?>
- 
+
                 <ul class="list-group list-group-flush">
                   <li class="list-group-item">
                     <?php if (!$tagihan) : ?>
@@ -64,8 +68,8 @@
                   </li>
                   <li class="list-group-item">
                     <div class="form-group row">
-                      <label for="jumlah" class="col-sm-3 col-form-label">Jumlah</label>
-                      <div class="col-md-9">
+                      <label for="jumlah" class="col-sm-3 col-form-label">Total Tagihan</label>
+                      <div class="col-sm-9">
                         <div class="input-group mb-3">
                           <div class="input-group-prepend">
                             <span class="input-group-text" id="basic-addon1">Rp.</span>
@@ -77,8 +81,16 @@
                     </div>
 
                     <div class="form-group row">
-                      <label for="buktib" class="col-sm-3 col-form-label">Bukti Bayar</label>
-                      <input type="file" class="form-control-file col-sm-9" id="buktib" name="buktib">
+                      <label for="buktib" class="col-sm-3 col-form-label pb-0">Bukti Bayar</label>
+                      <?php if (!$tagihan) : ?>
+                        <input type="file" class="form-control-file col-sm-9 pb-0" id="buktib" name="buktib" disabled>
+                      <?php else : ?>
+                        <input type="file" class="form-control-file col-sm-9 pb-0" id="buktib" name="buktib">
+                      <?php endif; ?>
+
+                      <div class="col-sm-3"></div>
+                      <div class="col-sm-6"><small class="pt-0 mt-0 text-danger font-italic">file format: *.jpg</small></div>
+
                     </div>
                   </li>
                   <li class="list-group-item text-center">

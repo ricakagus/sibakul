@@ -27,10 +27,10 @@
         <div class="col-md-12">
           <?= $this->session->flashdata('pesan'); ?>
           <div class="card card-primary card-outline">
-            <div class="card-header">
+            <div class="card-header pb-0">
 
               <div class="float-right">
-                <form class="form-inline ml-3" action="<?= base_url('admin/tagihan'); ?>" method="POST">
+                <form class="form-inline ml-3 pb-0" action="<?= base_url('admin/reqTagihan'); ?>" method="POST">
                   <div class="input-group input-group-sm">
                     <input class="form-control" type="search" placeholder="Search" aria-label="Search" name="keyword" autocomplete="off" autofocus>
                     <div class="input-group-append">
@@ -38,11 +38,12 @@
                     </div>
                   </div>
                 </form>
+                <small class="ml-4 mt-0 pb-0 text-danger " style="font-size: 11px;"><i>pencarian bulan gunakan angka</i></small>
               </div>
             </div>
             <div class="card-body p-0">
 
-              <table id="example2" class="table table-hover projects table-bordered table-sm ">
+              <table id="example2" class="table table-hover projects table-bordered table-sm pt-0 ">
                 <thead>
                   <tr class="bg-dark">
                     <th style="width: 1%;">#</th>
@@ -57,10 +58,10 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <?php $i = 1; ?>
+
                   <?php foreach ($reqTagihan as $rtg) : ?>
                     <tr>
-                      <td><?= $i; ?></td>
+                      <td><?= ++$start; ?></td>
                       <td><?= date('d/m/Y', $rtg['date_req']); ?></td>
                       <td>
                         <?php
@@ -92,18 +93,22 @@
                         <?php endif; ?>
                       </td>
                       <td class="project-actions text-right">
-                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-default<?= $rtg['nim']; ?>">
+                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-default<?= $rtg['id']; ?>">
                           <i class="fas fa-eye"></i>
                         </button>
-                        <a class="btn btn-danger btn-sm" href="" onclick="return confirm('hapus data, yakin?');">
+                        <a class="btn btn-danger btn-sm" href="<?= base_url('admin/hapusReqTagihan/') . $rtg['id']; ?>" onclick="return confirm('hapus data, yakin?');">
                           <i class="fas fa-trash-alt"></i>
                         </a>
                       </td>
                     </tr>
-                    <?php $i++; ?>
+
                   <?php endforeach; ?>
                 </tbody>
               </table>
+              <br>
+              <nav aria-label="Page navigation example">
+                <?= $this->pagination->create_links(); ?>
+              </nav>
             </div> <!-- /.card-outline -->
           </div> <!-- /.card-outline -->
         </div>
@@ -117,7 +122,7 @@
 <!-- Awal Modal View -->
 <?php $i = 1; ?>
 <?php foreach ($reqTagihan as $rtg) : ?>
-  <div class="modal fade" id="modal-default<?= $rtg['nim']; ?>">
+  <div class="modal fade" id="modal-default<?= $rtg['id']; ?>">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header bg-secondary">

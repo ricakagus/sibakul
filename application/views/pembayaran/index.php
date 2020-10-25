@@ -49,9 +49,9 @@
             </div>
             <div class="card-body p-0">
 
-              <table id="example2" class="table table-hover projects">
+              <table id="example2" class="table table-hover projects table-sm table-striped">
                 <thead>
-                  <tr>
+                  <tr class="bg-dark">
                     <th style="width: 1%">#</th>
                     <th style="width: 10%">Periode</th>
                     <th style="width: 10%">NIM</th>

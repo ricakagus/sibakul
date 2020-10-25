@@ -34,50 +34,70 @@
           <div class="card card-primary card-outline">
             <div class="card-header">
               <div class="row d-flex justify-content-between">
-                <div class="col-md-7 col-lg-5 text-center">
-                  <?php
-                  if ($reqtgh) :
 
-                    $id = $reqtgh['id'];
-                    $sisa = $reqtgh['sisa_req'];
-                    $status = $reqtgh['status'];
-                  ?>
-                    <?php if ($sisa == '2' and $status == '0') : ?>
-                      <small class="text-dark ml-2">sedang diproses, sisa request <?= $sisa ?> kali</small>
-                      <a href="<?= base_url('mahasiswa/editReqTagihan/') . $id; ?>" class="btn btn-warning btn-sm btn-block"><i class="far fa-fw fa-envelope"></i> Ubah Request</a>
-                    <?php elseif ($sisa == '2' and $status == '1') : ?>
-                      <small class="text-success ml-2">request disetujui, sisa request <?= $sisa ?> kali. <i><a href="" class="small" data-toggle="modal" data-target="#modal-pesanResp">lihat pesan admin</a></i></small>
-                      <a href="<?= base_url('mahasiswa/editReqTagihan/') . $id; ?>" class="btn btn-success btn-sm btn-block"><i class="far fa-fw fa-envelope"></i> Request Tagihan</a>
-                    <?php elseif ($sisa == '2' and $status == '2') : ?>
-                      <small class="text-danger ml-2">request ditolak, sisa request <?= $sisa ?> kali. <i><a href="" class="small" data-toggle="modal" data-target="#modal-pesanResp">lihat pesan admin</a></i></small>
-                      <a href="<?= base_url('mahasiswa/editReqTagihan/') . $id; ?>" class="btn btn-success btn-sm btn-block"><i class="far fa-fw fa-envelope"></i> Request Tagihan</a>
-                    <?php elseif ($sisa == '1' and $status == '0') : ?>
-                      <small class="text-dark ml-2">sedang diproses, sisa request <?= $sisa ?> kali</small>
-                      <a href="<?= base_url('mahasiswa/editReqTagihan/') . $id; ?>" class="btn btn-warning btn-sm btn-block"><i class="far fa-fw fa-envelope"></i> Ubah Request</a>
-                    <?php elseif ($sisa == '1' and $status == '1') : ?>
-                      <small class="text-success ml-2">request disetujui, sisa request <?= $sisa ?> kali. <i><a href="" class="small" data-toggle="modal" data-target="#modal-pesanResp">lihat pesan admin</a></i></small>
-                      <a href="<?= base_url('mahasiswa/editReqTagihan/') . $id; ?>" class="btn btn-success btn-sm btn-block"><i class="far fa-fw fa-envelope"></i> Request Tagihan</a>
-                    <?php elseif ($sisa == '1' and $status == '2') : ?>
-                      <small class="text-danger ml-2">request ditolak, sisa request <?= $sisa ?> kali. <i><a href="" class="small" data-toggle="modal" data-target="#modal-pesanResp">lihat pesan admin</a></i></small>
-                      <a href="<?= base_url('mahasiswa/editReqTagihan/') . $id; ?>" class="btn btn-success btn-sm btn-block"><i class="far fa-fw fa-envelope"></i> Request Tagihan</a>
-                    <?php elseif ($sisa == '0' and $status == '0') : ?>
-                      <small class="text-dark ml-2">sedang diproses, sisa request <?= $sisa ?> kali</small>
-                      <a href="<?= base_url('mahasiswa/editReqTagihan/') . $id; ?>" class="btn btn-warning btn-sm btn-block"><i class="far fa-fw fa-envelope"></i> Ubah Request</a>
-                    <?php elseif ($sisa == '0' and $status == '1') : ?>
-                      <small class="text-success ml-2">request disetujui, sisa request <?= $sisa ?> kali. <i><a href="" class="small" data-toggle="modal" data-target="#modal-pesanResp">lihat pesan admin</a></i></small>
-                      <button type="button" class="btn btn-secondary btn-sm btn-block" disabled><i class="far fa-fw fa-envelope"></i> Request Tagihan</button>
-                    <?php elseif ($sisa == '0' and $status == '2') : ?>
-                      <small class="text-danger ml-2">request ditolak, sisa request <?= $sisa ?> kali. <i><a href="" class="small" data-toggle="modal" data-target="#modal-pesanResp">lihat pesan admin</a></i></small>
-                      <button type="button" class="btn btn-secondary btn-sm btn-block" disabled><i class="far fa-fw fa-envelope"></i> Request Tagihan</button>
+                <?php if (!$totaltgh) : ?>
+                  <div class="col-md-7 col-lg-5 d-flex align-items-end">
+                    <span class="text-success font-italic font-weight-bold">* tidak ada tagihan</span>
+                  </div>
+                <?php else : ?>
+                  <?php if ($totaltgh['tahun'] == date('Y')) : ?>
+                    <?php if ($totaltgh['bulan'] == date('m')) : ?>
+                      <div class="col-md-7 col-lg-5 text-center">
+                        <?php
+                        if ($reqtgh) :
 
+                          $id = $reqtgh['id'];
+                          $sisa = $reqtgh['sisa_req'];
+                          $status = $reqtgh['status'];
+                        ?>
+                          <?php if ($sisa == '2' and $status == '0') : ?>
+                            <small class="text-dark ml-2">sedang diproses, sisa request <?= $sisa ?> kali</small>
+                            <a href="<?= base_url('mahasiswa/editReqTagihan/') . $id; ?>" class="btn btn-warning btn-sm btn-block"><i class="far fa-fw fa-envelope"></i> Ubah Request</a>
+                          <?php elseif ($sisa == '2' and $status == '1') : ?>
+                            <small class="text-success ml-2">request disetujui, sisa request <?= $sisa ?> kali. <i><a href="" class="small" data-toggle="modal" data-target="#modal-pesanResp">lihat pesan admin</a></i></small>
+                            <a href="<?= base_url('mahasiswa/editReqTagihan/') . $id; ?>" class="btn btn-success btn-sm btn-block"><i class="far fa-fw fa-envelope"></i> Request Tagihan</a>
+                          <?php elseif ($sisa == '2' and $status == '2') : ?>
+                            <small class="text-danger ml-2">request ditolak, sisa request <?= $sisa ?> kali. <i><a href="" class="small" data-toggle="modal" data-target="#modal-pesanResp">lihat pesan admin</a></i></small>
+                            <a href="<?= base_url('mahasiswa/editReqTagihan/') . $id; ?>" class="btn btn-success btn-sm btn-block"><i class="far fa-fw fa-envelope"></i> Request Tagihan</a>
+                          <?php elseif ($sisa == '1' and $status == '0') : ?>
+                            <small class="text-dark ml-2">sedang diproses, sisa request <?= $sisa ?> kali</small>
+                            <a href="<?= base_url('mahasiswa/editReqTagihan/') . $id; ?>" class="btn btn-warning btn-sm btn-block"><i class="far fa-fw fa-envelope"></i> Ubah Request</a>
+                          <?php elseif ($sisa == '1' and $status == '1') : ?>
+                            <small class="text-success ml-2">request disetujui, sisa request <?= $sisa ?> kali. <i><a href="" class="small" data-toggle="modal" data-target="#modal-pesanResp">lihat pesan admin</a></i></small>
+                            <a href="<?= base_url('mahasiswa/editReqTagihan/') . $id; ?>" class="btn btn-success btn-sm btn-block"><i class="far fa-fw fa-envelope"></i> Request Tagihan</a>
+                          <?php elseif ($sisa == '1' and $status == '2') : ?>
+                            <small class="text-danger ml-2">request ditolak, sisa request <?= $sisa ?> kali. <i><a href="" class="small" data-toggle="modal" data-target="#modal-pesanResp">lihat pesan admin</a></i></small>
+                            <a href="<?= base_url('mahasiswa/editReqTagihan/') . $id; ?>" class="btn btn-success btn-sm btn-block"><i class="far fa-fw fa-envelope"></i> Request Tagihan</a>
+                          <?php elseif ($sisa == '0' and $status == '0') : ?>
+                            <small class="text-dark ml-2">sedang diproses, sisa request <?= $sisa ?> kali</small>
+                            <a href="<?= base_url('mahasiswa/editReqTagihan/') . $id; ?>" class="btn btn-warning btn-sm btn-block"><i class="far fa-fw fa-envelope"></i> Ubah Request</a>
+                          <?php elseif ($sisa == '0' and $status == '1') : ?>
+                            <small class="text-success ml-2">request disetujui, sisa request <?= $sisa ?> kali. <i><a href="" class="small" data-toggle="modal" data-target="#modal-pesanResp">lihat pesan admin</a></i></small>
+                            <button type="button" class="btn btn-secondary btn-sm btn-block" disabled><i class="far fa-fw fa-envelope"></i> Request Tagihan</button>
+                          <?php elseif ($sisa == '0' and $status == '2') : ?>
+                            <small class="text-danger ml-2">request ditolak, sisa request <?= $sisa ?> kali. <i><a href="" class="small" data-toggle="modal" data-target="#modal-pesanResp">lihat pesan admin</a></i></small>
+                            <button type="button" class="btn btn-secondary btn-sm btn-block" disabled><i class="far fa-fw fa-envelope"></i> Request Tagihan</button>
+
+                          <?php endif; ?>
+                        <?php else : ?>
+                          <small class="text-dark ml-2">sedang diproses, sisa request 2 kali</small>
+                          <a href="<?= base_url('mahasiswa/inputReqTagihan'); ?>" class="btn btn-success btn-sm btn-block"><i class="far fa-fw fa-envelope"></i> Request Tagihan</a>
+                        <?php endif; ?>
+                      </div>
+                    <?php else : ?>
+                      <div class="col-md-7 col-lg-5 text-center">
+                        <small class="text-danger ml-2">tidak dapat melakukan request tagihan</small>
+                        <a href="<?= base_url('mahasiswa/inputReqTagihan'); ?>" class="btn btn-secondary btn-sm btn-block disabled"><i class="far fa-fw fa-envelope"></i> Request Tagihan</a>
+                      </div>
                     <?php endif; ?>
                   <?php else : ?>
-
-                    <small class="text-dark ml-2">sedang diproses, sisa request 2 kali</small>
-                    <a href="<?= base_url('mahasiswa/inputReqTagihan'); ?>" class="btn btn-success btn-sm btn-block"><i class="far fa-fw fa-envelope"></i> Request Tagihan</a>
+                    <div class="col-md-7 col-lg-5 text-center">
+                      <small class="text-danger ml-2">tidak dapat melakukan request tagihan</small>
+                      <a href="<?= base_url('mahasiswa/inputReqTagihan'); ?>" class="btn btn-secondary btn-sm btn-block disabled"><i class="far fa-fw fa-envelope"></i> Request Tagihan</a>
+                    </div>
                   <?php endif; ?>
+                <?php endif; ?>
 
-                </div>
                 <div class="col-md-5 col-lg-7 text-right mt-3">
                   <span class="h5">Total :</span>
                   <span class="h2 px-2 rounded bg-danger"> Rp. <?= number_format($totaltgh['total'], '0', ',', '.'); ?> </span>

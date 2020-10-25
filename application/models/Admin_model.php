@@ -54,6 +54,18 @@ class Admin_model extends CI_Model
     return $this->db->get('tb_total_tagihan', $limit, $start)->result_array();
   }
 
+  public function getDataPageReqTagihan($limit, $start, $keyword = null)
+  {
+    if ($keyword) {
+      $this->db->like('nim', $keyword);
+      $this->db->or_like('nama', $keyword);
+      $this->db->or_like('bulan', $keyword);
+      $this->db->or_like('tahun', $keyword);
+    }
+    $this->db->order_by('date_req', 'DESC');
+    return $this->db->get('tb_req_tagihan', $limit, $start)->result_array();
+  }
+
   public function getDataPageRincianTagihan($limit, $start, $keyword = null)
   {
     if ($keyword) {

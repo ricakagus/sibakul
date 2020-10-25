@@ -28,8 +28,7 @@
 
           <div class="card card-primary card-outline">
 
-
-            <div class="invoice p-3 mb-3">
+            <div class="invoice p-3  ">
               <div class="row">
                 <div class="col-sm-2 ml-2 text-center">
                   <img src="<?= base_url('assets/img/') . 'logo-sbb-bg-white.jpg'; ?>" class="rounded" height="50px">
@@ -58,13 +57,14 @@
                     Phone: <?= $user['noHp'] ?><br>
                   </address>
                 </div>
-                <?php if (!$tagihan) : ?>
-                  <div class="col-sm-4 invoice-col">
+                <div class="col-sm-4 invoice-col">
+                  <?php if (!$tagihan) : ?>
+
                     <b>No.Tagihan #-</b><br>
                     <small class="badge badge-success">tidak ada tagihan</small>
-                  </div>
-                <?php else : ?>
-                  <div class="col-sm-4 invoice-col">
+
+                  <?php else : ?>
+
                     <b>No.Tagihan #<?= $tagihan['id_tagihan'];  ?></b><br>
                     <b>Tagihan Bulan:</b> <?= $bulan_tagihan; ?> <br>
                     <!-- <?php if ($tagihan['status'] == 0) : ?>
@@ -74,17 +74,15 @@
                     <?php else : ?>
                       <small class="badge badge-warning">menunggu konfirmasi admin</small>
                     <?php endif; ?> -->
-                  </div>
-                <?php endif; ?>
-
-
+                  <?php endif; ?>
+                </div>
               </div> <!-- end row infoice-info -->
 
               <hr class="mb-0">
 
               <!-- row tabel -->
               <div class="row">
-                <div class="col-sm-6">
+                <div class="col-sm-6 ">
                   <table class="table table-borderless table-striped table-sm">
                     <thead>
                       <tr>
@@ -143,7 +141,7 @@
                     <?php endif; ?>
                   </table>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-6 ">
                   <table class="table table-borderless table-striped table-sm">
                     <thead>
                       <tr>
@@ -220,79 +218,26 @@
                     <?php if (!$tagihan) : ?>
                       <b>-</b>
                     <?php else : ?>
-                      <b style="color: red;"><?= date('d/m/Y', $tagihan['deadline']); ?></b></p>
-                <?php endif; ?>
-                <hr class="m-0">
-                <div class="table-responsive bg-light">
-                  <table class="table table-borderless mb-0">
-                    <tr class="h4">
-                      <th style="width: 30%;"></th>
-                      <th style="width:25%">Jumlah</th>
-                      <td>: Rp. <?= number_format($tagihan['jumlah'], '0', ',', '.'); ?></td>
-                    </tr>
-                  </table>
-                </div>
-                <hr class="m-0">
+                      <b style="color: red;"><?= date('d/m/Y', $tagihan['deadline']); ?></b>
+                    <?php endif; ?>
+                  </p>
+                  <hr class="m-0">
+                  <div class="table-responsive bg-light">
+                    <table class="table table-borderless mb-0">
+                      <tr class="h4">
+                        <th style="width: 30%;"></th>
+                        <th style="width:25%">Jumlah</th>
+                        <td>: Rp. <?= number_format($tagihan['jumlah'], '0', ',', '.'); ?></td>
+                      </tr>
+                    </table>
+                  </div>
+                  <hr class="m-0">
                 </div>
               </div> <!-- end row payment -->
 
               <!-- row print -->
               <div class="row no-print d-flex justify-content-around">
-                <div class="col-4">
-                  <?php if (!$tagihan) : ?>
-                    <button class="btn btn-block btn-success" disabled><i class=" far fa-fw fa-envelope "></i> Ajukan Perubahan</button>
-                    <?php else :
-                    if ($reqTagihan) : // ada data reqTagihan
-                      $sisa = $reqTagihan['sisa_req'];
-                      $status = $reqTagihan['status'];
-                      if ($sisa == '2' and $status == '0') : // sisa 1, status 0 
-                    ?>
-                        <a href="<?= base_url('mahasiswa/editReqTagihan/') . $reqTagihan['id_tagihan'] ?>" class="btn btn-block btn-warning"><i class="far fa-fw fa-envelope"></i> Ajukan Perubahan</a>
-                        <small class="text-dark ml-2">sedang diproses, batas ajuan tersisa <?= $sisa; ?> kali</small>
-                      <?php elseif ($sisa == '2' and $status == '1') : // sisa 1, status 1 
-                      ?>
-                        <a href="<?= base_url('mahasiswa/editReqTagihan/') . $reqTagihan['id_tagihan'] ?>" class="btn btn-block btn-success"><i class="far fa-fw fa-envelope"></i> Ajukan Perubahan</a>
-                        <small class="text-success ml-2">ajuan disetujui batas ajuan tersisa <?= $sisa; ?> kali. <i><a href="" class="small" data-toggle="modal" data-target="#modal-pesanResp">lihat pesan admin</a></i></small>
-                      <?php elseif ($sisa == '2' and $status == '2') :  // sisa 1, status 2 
-                      ?>
-                        <a href="<?= base_url('mahasiswa/editReqTagihan/') . $reqTagihan['id_tagihan'] ?>" class="btn btn-block btn-success"><i class="far fa-fw fa-envelope"></i> Ajukan Perubahan</a>
-                        <small class="text-danger ml-2">ajuan ditolak batas ajuan tersisa <?= $sisa; ?> kali. <i><a href="" class="small" data-toggle="modal" data-target="#modal-pesanResp">lihat pesan admin</a></i></small>
-                      <?php
-                      elseif ($sisa == '1' and $status == '0') : // sisa 1, status 0
-                      ?>
-                        <a href="<?= base_url('mahasiswa/editReqTagihan/') . $reqTagihan['id_tagihan'] ?>" class="btn btn-block btn-warning"><i class="far fa-fw fa-envelope"></i> Ajukan Perubahan</a>
-                        <small class="text-dark ml-2">sedang diproses, batas ajuan tersisa <?= $sisa; ?> kali.</small>
-                      <?php elseif ($sisa == '1' and $status == '1') : // sisa 1, status 1 
-                      ?>
-                        <a href="<?= base_url('mahasiswa/editReqTagihan/') . $reqTagihan['id_tagihan'] ?>" class="btn btn-block btn-success"><i class="far fa-fw fa-envelope"></i> Ajukan Perubahan</a>
-                        <small class="text-success ml-2">ajuan disetujui batas ajuan tersisa <?= $sisa; ?> kali. <i><a href="" class="small" data-toggle="modal" data-target="#modal-pesanResp">lihat pesan admin</a></i></small>
-                      <?php elseif ($sisa == '1' and $status == '2') :  // sisa 1, status 2 
-                      ?>
-                        <a href="<?= base_url('mahasiswa/editReqTagihan/') . $reqTagihan['id_tagihan'] ?>" class="btn btn-block btn-success"><i class="far fa-fw fa-envelope"></i> Ajukan Perubahan</a>
-                        <small class="text-danger ml-2">ajuan ditolak batas ajuan tersisa <?= $sisa; ?> kali. <i><a href="" class="small" data-toggle="modal" data-target="#modal-pesanResp">lihat pesan admin</a></i></small>
-                      <?php elseif ($sisa == '0' and $status == '0') : // sisa 0, status 0 
-                      ?>
-                        <a href="<?= base_url('mahasiswa/editReqTagihan/') . $reqTagihan['id_tagihan'] ?>" class="btn btn-block btn-warning"><i class="far fa-fw fa-envelope"></i> Ajukan Perubahan</a>
-                        <small class="text-success ml-2">batas ajuan tersisa <?= $sisa; ?> kali</small>
-                      <?php elseif ($sisa == '0' and $status == '1') : // sisa 0, status 1 
-                      ?>
-                        <button class="btn btn-block btn-block btn-secondary" disabled><i class="far fa-fw fa-envelope"></i>Ajukan Perubahan</button>
-                        <small class="text-success ml-2">ajuan disetujui batas ajuan tersisa <?= $sisa; ?> kali. <i><a href="" class="small" data-toggle="modal" data-target="#modal-pesanResp">lihat pesan admin</a></i></small>
-                      <?php elseif ($sisa == '0' and $status == '2') :  // sisa 0, status 2 
-                      ?>
-                        <button class="btn btn-block btn-secondary" disabled><i class="far fa-fw fa-envelope"></i>Ajukan Perubahan</button>
-                        <small class="text-danger ml-2">ajuan ditolak batas ajuan tersisa <?= $sisa; ?> kali. <i><a href="" class="small" data-toggle="modal" data-target="#modal-pesanResp">lihat pesan admin</a></i></small>
-                      <?php endif; ?>
-                    <?php else :
-                      // sisa null, status null
-                    ?>
-                      <a href="<?= base_url('mahasiswa/inputReqTagihan/') . $reqTagihan['id_tagihan'] ?>" class="btn btn-block btn-success"><i class="far fa-fw fa-envelope"></i> Ajukan Perubahan</a>
-                      <small class="text-success ml-2">batas ajuan tersisa 2 kali</small>
-                  <?php
-                    endif;
-                  endif;
-                  ?>
-
+                <div class="col-8">
                 </div>
                 <div class="col-4">
                   <?php if (!$tagihan) : ?>
@@ -304,60 +249,15 @@
               </div>
             </div>
 
-
           </div>
 
         </div>
       </div>
+
+
 
     </div><!-- /.container-fluid -->
   </div>
   <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
-
-
-<div class="modal fade" id="modal-pesanResp">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header bg-secondary">
-        <h4 class="modal-title">Request Tagihan: # <?= $reqTagihan['id_tagihan']; ?></h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="card">
-          <div class="card-body">
-            <div class="row">
-              <div class="col-md">
-                <div class="form-group m-0">
-                  <label for="inputNama">Nama</label>
-                  <input type="text" class="form-control" id="inputNama" placeholder="nama" value="<?= $reqTagihan['nama']; ?>" readonly>
-                </div>
-                <div class="form-group m-0">
-                  <label>Pesan Pengajuan</label>
-                  <textarea class="form-control" rows="3" placeholder="Enter ..." readonly><?= $reqTagihan['pesan_req']; ?></textarea>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-body">
-            <div class="form-group m-0">
-              <label>Respon Pengajuan</label>
-              <textarea class="form-control" rows="3" placeholder="Enter ..." name="inputRespon" readonly><?= $reqTagihan['pesan_resp']; ?></textarea>
-            </div>
-          </div>
-        </div>
-
-      </div>
-      <div class="modal-footer float-right">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">close</button>
-      </div>
-    </div>
-    <!-- /.modal-content -->
-  </div>
-  <!-- /.modal-dialog -->
-</div>

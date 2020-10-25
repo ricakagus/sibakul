@@ -5,6 +5,7 @@ class Pembayaran_model extends CI_Model
 {
   public function getAllPembayaran()
   {
+    $this->db->order_by('tgl_upload', 'DESC');
     return $this->db->get('tb_pembayaran')->result_array();
   }
 

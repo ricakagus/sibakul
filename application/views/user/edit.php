@@ -96,14 +96,9 @@
                 <label for="foto" class="col-sm-3 col-form-label">Foto</label>
                 <div class="col-sm-9">
                   <div class="row">
-                    <!-- <div class="col-sm-3">
-                      <img src="<?= base_url('assets/img/profil/') . $user['image']; ?>" class="img-thumbnail">
-                    </div> -->
                     <div class="col-sm-12">
-                      <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="foto" name="foto">
-                        <label class="custom-file-label" for="foto">pilih file</label>
-                      </div>
+                      <input type="file" class="form-control-file col-sm-9 pb-0" id="foto" name="foto">
+                      <small class="pl-2 text-danger">*format: *jpg, max: 1Mb, 1:1</small>
                     </div>
                   </div>
                 </div>
@@ -129,4 +124,4 @@
     </div>
     <!-- /.content -->
   </div>
-  <!-- /.content-wrapper --> 
+  <!-- /.content-wrapper -->

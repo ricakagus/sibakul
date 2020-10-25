@@ -64,11 +64,7 @@
                 <?php endif; ?>
                 <br>
                 <b>Tagihan Bulan:</b> <?= $bulan_tagihan; ?> <br>
-                <?php if ($tagihan['status'] == 0) : ?>
-                  <a href="" class="btn btn-info btn-block disabled">Cek Pembayaran</a>
-                <?php else : ?>
-                  <a href="<?= base_url('admin/cek_pembayaran/') . $tagihan['id_tagihan']; ?>" class="btn btn-info btn-block">Cek Pembayaran</a>
-                <?php endif; ?>
+               
 
 
                 <?php
@@ -209,19 +205,20 @@
                   <?php else : ?>
                     <b style="color: red;">
                       <?= date('d / m / Y', $tagihan['deadline']); ?>
-                    </b></p>
-              <?php endif; ?></p>
-              <hr class="m-0">
-              <div class="table-responsive bg-light">
-                <table class="table table-borderless mb-0">
-                  <tr class="h4">
-                    <th style="width: 30%;"></th>
-                    <th style="width:25%">Jumlah</th>
-                    <td>: Rp. <?= number_format($tagihan['jumlah'], '0', ',', '.'); ?></td>
-                  </tr>
-                </table>
-              </div>
-              <hr class="m-0">
+                    </b>
+                  <?php endif; ?>
+                </p>
+                <hr class="m-0">
+                <div class="table-responsive bg-light">
+                  <table class="table table-borderless mb-0">
+                    <tr class="h4">
+                      <th style="width: 30%;"></th>
+                      <th style="width:25%">Jumlah</th>
+                      <td>: Rp. <?= number_format($tagihan['jumlah'], '0', ',', '.'); ?></td>
+                    </tr>
+                  </table>
+                </div>
+                <hr class="m-0">
               </div>
             </div> <!-- end row payment -->
 

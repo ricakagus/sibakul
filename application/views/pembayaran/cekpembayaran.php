@@ -41,7 +41,7 @@
 
                 <span class="h3 text-right"># <?= $namabulan . ' ' . $pembayaran['tahun']; ?> #</span>
               <?php endif; ?>
-
+ 
               <span class="badge badge-warning">paid</span>
             </div>
             <?= $this->session->flashdata('pesan'); ?>

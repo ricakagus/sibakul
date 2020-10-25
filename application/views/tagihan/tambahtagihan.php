@@ -52,11 +52,11 @@
                   <div class="row">
                     <div class="col-md-6">
                       <div class="form-group">
-                        <input type="text" class="form-control" id="nim" name="nim" placeholder="NIM" value="<?= $mahasiswa['nim']; ?>">
+                        <input type="text" class="form-control" id="nim" name="nim" placeholder="NIM" value="<?= $mahasiswa['nim']; ?>" readonly>
                         <?= form_error('nim', '<small class=text-danger pl-3">', '</small>'); ?>
                       </div>
                       <div class="form-group">
-                        <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama" value="<?= $mahasiswa['nama']; ?>">
+                        <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama" value="<?= $mahasiswa['nama']; ?>" readonly>
                         <?= form_error('nama', '<small class=text-danger pl-3">', '</small>'); ?>
                       </div>
                     </div>
@@ -161,7 +161,7 @@
               <div class="row">
                 Rekap Tagihan
               </div>
-      
+
             </div>
             <div class="card-body pt-2">
               <div class="row d-flex align-items-end pb-2">

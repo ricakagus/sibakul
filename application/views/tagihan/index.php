@@ -29,7 +29,7 @@
           <?= $this->session->flashdata('pesan'); ?>
           <div class="card card-primary card-outline">
 
-            <div class="card-header">
+            <div class="card-header pb-0">
 
               <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-sm">
                 <i class="fas fa-plus"></i>
@@ -96,7 +96,7 @@
                         <?php elseif ($tgh['status'] == 2) : ?>
                           <span class="badge badge-pill badge-danger">rejected</span>
                         <?php else : ?>
-                          <a href="<?= base_url('admin/cek_pembayaran/') . $tgh['nim']; ?>" class="badge badge-pill badge-warning">paid</a>
+                          <a href="<?= base_url('admin/pembayaran/'); ?>" class="badge badge-pill badge-warning">paid</a>
                         <?php endif; ?>
                       </td>
                       <td class="project-actions text-left">
@@ -107,7 +107,7 @@
                           <i class="fas fa-pencil-alt"></i>
                         </a> -->
 
-                        <a class="btn btn-danger btn-sm" href="<?= base_url('admin/hapusTagihan/') . $tgh['nim']; ?>" onclick="return confirm('hapus data, yakin?');" title="hapus">
+                        <a class="btn btn-danger btn-sm" href="<?= base_url('admin/hapusTagihan/') . $tgh['nim']; ?>" onclick="return confirm('hapus data tagihan, yakin?');" title="hapus">
                           <i class="fas fa-trash-alt"></i>
                         </a>
                       </td>

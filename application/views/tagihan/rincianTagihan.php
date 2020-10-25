@@ -115,7 +115,7 @@
                           <i class="fas fa-pencil-alt"></i>
                         </a> -->
 
-                        <a class="btn btn-danger btn-sm" href="<?= base_url('admin/hapusTagihan/') . $rtgh['id_tagihan']; ?>" onclick="return confirm('hapus data, yakin?');" title="hapus">
+                        <a class="btn btn-danger btn-sm" href="<?= base_url('admin/hapusTagihanByid/') . $rtgh['nim'] . '/' . $rtgh['id_tagihan']; ?>" onclick="return confirm('hapus data rincian tagihan, yakin?');" title="hapus">
                           <i class="fas fa-trash-alt"></i>
                         </a>
                       </td>
