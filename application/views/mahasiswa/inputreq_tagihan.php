@@ -53,7 +53,7 @@
                   </div>
                   <div class="col-md-8">
                     <label for="">Request Tagihan</label>
-                    
+
 
                     <div class="row">
                       <div class="col-sm-8">
@@ -64,6 +64,15 @@
                             <span class="input-group-text">Rp.</span>
                           </div>
                           <input type="number" class="form-control" name="pesan_req" placeholder="0">
+                          <small class="ml-1 font-italic text-danger">hanya input angka tanpa tanda titik atau koma</small>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-8">
+                        <div class="form-group">
+                          <label>Pesan untuk Admin:</label>
+                          <textarea class="form-control" rows="3" name="pesan_mhs" placeholder="isi pesan ..."></textarea>
                         </div>
                       </div>
                     </div>

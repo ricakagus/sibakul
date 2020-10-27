@@ -25128,7 +25128,7 @@ html.maximized-card {
 
 	.login-box,
 	.register-box {
-		margin-top: 20px;
+		margin-top: 10px;
 		width: 90%;
 	}
 }
@@ -25189,7 +25189,7 @@ html.maximized-card {
 .login-box-msg,
 .register-box-msg {
 	margin: 0;
-	padding: 0 20px 20px;
+	padding: 0 10px 10px;
 	text-align: center;
 }
 

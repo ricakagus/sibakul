@@ -144,10 +144,11 @@
                     <li><b><?= $rtg['nim'] . ' - ' . $rtg['nama']; ?></b></li>
                     <li>Total Tagihan: <b>Rp.<?= number_format($totaltgh, '0', ',', '.'); ?></b></li>
                     <?php if ($rtg['jenis'] == 'minus') : ?>
-                      <li>Pesan: <span class="text-danger font-weight-bold">kurangi tagihan</span>, menjadi <b>Rp.<?= number_format($rtg['pesan_req'], '0', ',', '.'); ?></b></li>
+                      <li>Request: <span class="text-danger font-weight-bold">kurangi tagihan</span>, menjadi <b>Rp.<?= number_format($rtg['pesan_req'], '0', ',', '.'); ?></b></li>
                     <?php elseif ($rtg['jenis'] == 'plus') : ?>
-                      <li>Pesan: <span class="text-success font-weight-bold">tambah tagihan</span>, menjadi <b>Rp.<?= number_format($rtg['pesan_req'], '0', ',', '.'); ?></b></li>
+                      <li>Request: <span class="text-success font-weight-bold">tambah tagihan</span>, menjadi <b>Rp.<?= number_format($rtg['pesan_req'], '0', ',', '.'); ?></b></li>
                     <?php endif; ?>
+                    <li>Keterangan: <span class="font-italic text-danger"> <?= $rtg['pesan_mhs']; ?></span></li>
                   </ul>
                 </li>
                 <li class="list-group-item list-group-item-secondary">

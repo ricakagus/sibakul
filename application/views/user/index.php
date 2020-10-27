@@ -52,7 +52,7 @@
                 </li>
               </ul>
 
-              <a href="<?= base_url('user/edit/'); ?>" class="btn btn-primary btn-block"><b>ubah profil</b></a>
+              <a href="<?= base_url('user/edit/') . '#editprofil'; ?>" class="btn btn-primary btn-block"><b>ubah profil</b></a>
             </div>
             <!-- /.card-body -->
           </div>

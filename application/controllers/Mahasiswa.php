@@ -78,10 +78,10 @@ class Mahasiswa extends CI_Controller
 
     $data['totaltgh'] = $this->db->get_where('tb_total_tagihan', ['nim' => $nim])->row_array();
 
-    
+
 
     // var_dump("Data Tagihan: " . $data['tagihan']);
-    
+
 
     $this->load->view('templates/header', $data);
     $this->load->view('templates/topbar');
@@ -254,6 +254,7 @@ class Mahasiswa extends CI_Controller
         'nama' => $this->input->post('nama'),
         'jenis' => $jenis,
         'pesan_req' => $this->input->post('pesan_req'),
+        'pesan_mhs' => $this->input->post('pesan_mhs'),
         'status' => 0,
         'sisa_req' => 2,
         'date_resp' => 0
@@ -299,6 +300,7 @@ class Mahasiswa extends CI_Controller
         'nama' => $this->input->post('nama'),
         'jenis' => $jenis,
         'pesan_req' => $this->input->post('pesan_req'),
+        'pesan_mhs' => $this->input->post('pesan_mhs'),
         'status' => 0,
         'date_resp' => 0
       ];

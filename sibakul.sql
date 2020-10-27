@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 23, 2020 at 03:54 PM
+-- Generation Time: Oct 27, 2020 at 10:50 AM
 -- Server version: 10.1.37-MariaDB
 -- PHP Version: 7.1.25
 
@@ -112,15 +112,6 @@ CREATE TABLE `tb_pembayaran` (
   `status` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `tb_pembayaran`
---
-
-INSERT INTO `tb_pembayaran` (`id`, `bulan`, `tahun`, `nim`, `total`, `tgl_upload`, `bukti`, `status`) VALUES
-(1, 10, 2020, '1218001', 4000000, '1603453779', '2020101218001.jpg', 1),
-(5, 10, 2020, '1216008', 2500000, '1603460453', '2020101216008.jpg', 1),
-(6, 10, 2020, '1218002', 1000000, '1603461124', '2020101218002.jpg', 1);
-
 -- --------------------------------------------------------
 
 --
@@ -136,20 +127,13 @@ CREATE TABLE `tb_req_tagihan` (
   `nama` varchar(128) NOT NULL,
   `jenis` varchar(10) NOT NULL,
   `pesan_req` text NOT NULL,
+  `pesan_mhs` text NOT NULL,
   `pesan_resp` text NOT NULL,
   `status` int(1) NOT NULL,
   `sisa_req` int(11) NOT NULL,
   `date_resp` int(11) NOT NULL,
   `keterangan` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `tb_req_tagihan`
---
-
-INSERT INTO `tb_req_tagihan` (`id`, `bulan`, `tahun`, `date_req`, `nim`, `nama`, `jenis`, `pesan_req`, `pesan_resp`, `status`, `sisa_req`, `date_resp`, `keterangan`) VALUES
-(2, 10, 2020, 1603453711, '1218001', 'MARTEN UMBU LOLO', 'plus', '4000000', 'di ijikan', 1, 1, 1603453725, 'tagihan bulan depan dikurangi Rp.1.000.000'),
-(6, 10, 2020, 1603456283, '1216008', 'PETRUS RAFAEL DHAE', 'minus', '2500000', 'maaf tidak bisa', 1, 0, 1603456328, 'tagihan selanjutnya ditambah Rp. 660.000');
 
 -- --------------------------------------------------------
 
@@ -230,20 +214,6 @@ CREATE TABLE `tb_tagihan` (
   `status` int(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `tb_tagihan`
---
-
-INSERT INTO `tb_tagihan` (`id`, `id_tagihan`, `created`, `bulan`, `tahun`, `deadline`, `nim`, `nama`, `jumlah`, `cuti`, `dpp`, `almamater`, `pspt`, `kp`, `pkp`, `ta`, `pta`, `spp`, `konversi`, `denda`, `status`) VALUES
-(5, '2020091218003', 1599709634, 9, 2020, 1601416800, '1218003', 'FLORIDA DOWA', 1680000, 500000, 500000, 150000, 0, 0, 0, 0, 0, 500000, 0, 30000, 0),
-(6, '2020091218004', 1599709634, 9, 2020, 1601416800, '1218004', 'DAVID UMBU NGAILU', 500000, 0, 0, 0, 0, 0, 0, 0, 0, 500000, 0, 0, 0),
-(7, '2020091218006', 1599709634, 9, 2020, 1601416800, '1218006', 'MARSELINUS MONGGO', 1220000, 0, 700000, 0, 0, 0, 0, 0, 0, 500000, 0, 20000, 0),
-(8, '2020091218007', 1599709634, 9, 2020, 1601416800, '1218007', 'WENIUS LOKOBAL', 500000, 0, 0, 0, 0, 0, 0, 0, 0, 500000, 0, 0, 0),
-(9, '2020091218008', 1599709634, 9, 2020, 1601416800, '1218008', 'GAUDENSIA NATALIA LEDE', 500000, 0, 0, 0, 0, 0, 0, 0, 0, 500000, 0, 0, 0),
-(10, '2020091218009', 1599709634, 9, 2020, 1601416800, '1218009', 'PAULUS REHI KALLI GHOBA', 1030000, 0, 0, 0, 0, 0, 0, 0, 0, 1000000, 0, 30000, 0),
-(11, '2020091219012', 1599709634, 9, 2020, 1601416800, '1219012', 'ALEXANDER DINGU JAGA MEHA', 1350000, 0, 600000, 150000, 0, 0, 0, 0, 0, 550000, 0, 50000, 0),
-(24, '2020101218009', 1603349177, 10, 2020, 1604098800, '1218009', 'PAULUS REHI KALLI GHOBA', 170000, 0, 0, 0, 0, 0, 0, 0, 0, 150000, 0, 20000, 0);
-
 -- --------------------------------------------------------
 
 --
@@ -259,19 +229,6 @@ CREATE TABLE `tb_total_tagihan` (
   `total` int(11) NOT NULL,
   `status` int(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `tb_total_tagihan`
---
-
-INSERT INTO `tb_total_tagihan` (`id`, `nim`, `nama`, `bulan`, `tahun`, `total`, `status`) VALUES
-(4, '1218003', 'FLORIDA DOWA', 9, 2020, 1680000, 0),
-(5, '1218004', 'DAVID UMBU NGAILU', 9, 2020, 500000, 0),
-(7, '1218007', 'WENIUS LOKOBAL', 9, 2020, 500000, 0),
-(8, '1218008', 'GAUDENSIA NATALIA LEDE', 9, 2020, 500000, 0),
-(9, '1218009', 'PAULUS REHI KALLI GHOBA', 10, 2020, 1200000, 0),
-(12, '1219012', 'ALEXANDER DINGU JAGA MEHA', 9, 2020, 1350000, 0),
-(13, '1218006', 'MARSELINUS MONGGO', 9, 2020, 1220000, 0);
 
 -- --------------------------------------------------------
 
@@ -302,12 +259,12 @@ INSERT INTO `tb_user` (`id`, `nama`, `nim`, `image`, `password`, `prodi`, `noHp`
 (4, 'MARTEN UMBU LOLO', '1218001', 'default.jpg', '$2y$10$GkeZlDfQjoPzUCl94PhRCub7qLuIvsIgxeVJLBXL2tgPnG59lEYV.', 'Teknik Informatika', '0', 2, 1),
 (5, 'IGNASIUS ALANS TUNJUNG', '1218002', 'default.jpg', '$2y$10$2KEiqqgjvbuxxGb/XNGhyOuXnyxO41PW4j0y4AV8p1VfoNHyyQJsm', 'Teknik Informatika', '0', 2, 1),
 (6, 'FLORIDA DOWA', '1218003', 'default.jpg', '$2y$10$BgaU33jFKY/nydTcb/RpqefL8U6jVyNDs5.YOUAjWVfuzBSRJgF8i', 'Teknik Informatika', '0', 2, 1),
-(7, 'DAVID UMBU NGAILU', '1218004', 'default.jpg', '$2y$10$pNNjYDJ310Lq9riqTst02eGSz6ftGFOhW5GNnkBTY4LkmcQU8OMOS', 'Teknik Informatika', '0', 2, 1),
+(7, 'DAVID UMBU NGAILU', '1218004', '1218004.jpg', '$2y$10$pNNjYDJ310Lq9riqTst02eGSz6ftGFOhW5GNnkBTY4LkmcQU8OMOS', 'Teknik Informatika', '0', 2, 1),
 (8, 'MARSELINUS MONGGO', '1218006', 'default.jpg', '$2y$10$RLzqBHu5B9cvSBaS7yCJt.UEcOQNi/VQ3KwUZi/5GbD.itVhy43ky', 'Teknik Informatika', '0', 2, 1),
 (9, 'WENIUS LOKOBAL', '1218007', 'default.jpg', '$2y$10$d7GW8jOHka3efmx.m3SZMupNGUduIg7zLysT714MjCMBC5p4OIAPW', 'Teknik Informatika', '0', 2, 1),
 (10, 'GAUDENSIA NATALIA LEDE', '1218008', 'default.jpg', '$2y$10$pRwOy3SQag4Wy604xPiMHuFOiIYu2p8yiyz3V7xK/VZ8M7u0KxyFm', 'Teknik Informatika', '0', 2, 1),
 (11, 'PAULUS REHI KALLI GHOBA', '1218009', 'default.jpg', '$2y$10$LdFaPAAozfRWUzahGcsOS.dnmlSioE0sHxgkf3X/32NHYoPRVChCS', 'Teknik Informatika', '0', 2, 1),
-(12, 'OKTAVIANA KALLU ATE', '1218013', 'default.jpg', '$2y$10$/kutVq65KhzKIhZc5jyinuTQUKXSZhAfUistudH1g8RrqW.cbi8T6', 'Teknik Informatika', '0', 2, 1),
+(12, 'OKTAVIANA KALLU ATE', '1218013', '1218013.jpg', '$2y$10$i7Gl8n5Vtf9xuaiYgqk.weDW5hMiWVd2371OvUXFnemTznHgMnVtO', 'Teknik Informatika', '082359355795', 2, 1),
 (13, 'APLIANA AMBU KAKA', '1218014', 'default.jpg', '$2y$10$CEacvMwzvd.yoEsAyKlQ5OcXWikF7BY29KPY.EMf7F9N8pvS1KjSu', 'Teknik Informatika', '0', 2, 1),
 (14, 'VERONIKA WALU', '1219001', 'default.jpg', '$2y$10$fR5tJrPcLD5/0x/DdssdGO810c8QKXl6n.QibB7hVc4dz9/ez.ule', 'Teknik Informatika', '0', 2, 1),
 (15, 'YOHANES EWALDUS WOI GOA', '1219002', 'default.jpg', '$2y$10$RYa7Kkvv73g/3XvJYGVAheXMno5eE4x2HsvNK4Wsh1x3upvUrFeOm', 'Teknik Informatika', '0', 2, 1),
@@ -467,13 +424,13 @@ ALTER TABLE `tb_menu`
 -- AUTO_INCREMENT for table `tb_pembayaran`
 --
 ALTER TABLE `tb_pembayaran`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tb_req_tagihan`
 --
 ALTER TABLE `tb_req_tagihan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tb_role`
@@ -491,13 +448,13 @@ ALTER TABLE `tb_sub_menu`
 -- AUTO_INCREMENT for table `tb_tagihan`
 --
 ALTER TABLE `tb_tagihan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tb_total_tagihan`
 --
 ALTER TABLE `tb_total_tagihan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tb_user`

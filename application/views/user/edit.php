@@ -52,14 +52,14 @@
                 </li>
               </ul>
 
-
               <a href="#" class="btn btn-primary btn-block disabled"><b>ubah profil</b></a>
             </div>
             <!-- /.card-body -->
           </div>
           <!-- /.card -->
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6" id="editprofil">
+
           <div class="card card-primary card-outline">
             <div class="card-header">
               <h3 class="card-title"> Edit Profil</h3>

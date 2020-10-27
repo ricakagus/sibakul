@@ -80,7 +80,7 @@
 
                           <?php endif; ?>
                         <?php else : ?>
-                          <small class="text-dark ml-2">sedang diproses, sisa request 2 kali</small>
+                          <small class="text-dark ml-2">sisa request 2 kali</small>
                           <a href="<?= base_url('mahasiswa/inputReqTagihan'); ?>" class="btn btn-success btn-sm btn-block"><i class="far fa-fw fa-envelope"></i> Request Tagihan</a>
                         <?php endif; ?>
                       </div>
@@ -107,7 +107,7 @@
 
             </div>
             <div class="card-body p-0">
-              <table id="example2" class="table table-hover projects table-sm table-striped">
+              <table id="example2" class="table table-hover table-responsive projects table-sm table-striped">
                 <thead class="bg-gray-dark">
                   <tr>
                     <th style="width: 1%">#</th>

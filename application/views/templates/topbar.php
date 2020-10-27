@@ -41,10 +41,10 @@
        </div>
      </li> -->
 
-     <li class="nav-item">
+     <li class="nav-item text-center">
 
-       <a class="nav-link" data-toggle="" href="<?= base_url('auth/signout'); ?>">
-         <strong class="text-undeline"><i class="fas fa-power-off text-danger"></i> Keluar</strong>
+       <a class="nav-link" href="<?= base_url('auth/signout'); ?>">
+         <i class="fas fa-power-off text-danger"></i> <strong>Keluar</strong>
          <!-- <i class="fas fa-sign-out-alt"> </i> -->
        </a>
      </li>

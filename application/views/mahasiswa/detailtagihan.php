@@ -24,7 +24,7 @@
     <div class="container-fluid">
 
       <div class="row">
-        <div class="col-12">
+        <div class="col-md-12">
 
           <div class="card card-primary card-outline">
 
@@ -198,7 +198,7 @@
               <hr class="mt-0">
               <!-- row payment -->
               <div class="row">
-                <div class="col-6">
+                <div class="col-md-6">
                   <p class="lead">Metode Pembayaran:</p>
 
                   <img src="<?= base_url('assets/'); ?>img/BPD-BALI.jpg" alt="logo BPD Bali" width="auto" height="60px">
@@ -213,7 +213,7 @@
                   </p>
                 </div>
                 <!-- /.col -->
-                <div class="col-6">
+                <div class="col-md-6">
                   <p class="lead">Batas Pembayaran:
                     <?php if (!$tagihan) : ?>
                       <b>-</b>
@@ -222,42 +222,42 @@
                     <?php endif; ?>
                   </p>
                   <hr class="m-0">
-                  <div class="table-responsive bg-light">
-                    <table class="table table-borderless mb-0">
-                      <tr class="h4">
-                        <th style="width: 30%;"></th>
-                        <th style="width:25%">Jumlah</th>
-                        <td>: Rp. <?= number_format($tagihan['jumlah'], '0', ',', '.'); ?></td>
-                      </tr>
-                    </table>
-                  </div>
-                  <hr class="m-0">
-                </div>
-              </div> <!-- end row payment -->
 
-              <!-- row print -->
-              <div class="row no-print d-flex justify-content-around">
-                <div class="col-8">
+                  <table class="table table-borderless mb-0">
+                    <tr class="h4">
+                      <!-- <th style="width: 10%;"></th> -->
+                      <td class="text-right font-weight-bold">Jumlah</td>
+                      <td class="text-left">: Rp. <?= number_format($tagihan['jumlah'], '0', ',', '.'); ?></td>
+                    </tr>
+                  </table>
                 </div>
-                <div class="col-4">
-                  <?php if (!$tagihan) : ?>
-                    <button class="btn btn-block btn-primary" disabled><i class=" fas fa-print"></i> Cetak</button>
-                  <?php else : ?>
-                    <a href="<?= base_url('mahasiswa/cetak_tagihan/') . $tagihan['id_tagihan']; ?>" class="btn btn-block btn-primary"><i class="fas fa-fw fa-print"></i> Cetak</a>
-                  <?php endif; ?>
-                </div>
+                <hr class="m-0">
+              </div>
+            </div> <!-- end row payment -->
+
+            <!-- row print -->
+            <div class="row no-print d-flex justify-content-around">
+              <div class="col-8">
+              </div>
+              <div class="col-4">
+                <?php if (!$tagihan) : ?>
+                  <button class="btn btn-block btn-primary" disabled><i class=" fas fa-print"></i> Cetak</button>
+                <?php else : ?>
+                  <a href="<?= base_url('mahasiswa/cetak_tagihan/') . $tagihan['id_tagihan']; ?>" class="btn btn-block btn-primary"><i class="fas fa-fw fa-print"></i> Cetak</a>
+                <?php endif; ?>
               </div>
             </div>
-
           </div>
 
-        </div>
+        </div> <!-- /. card -->
+
       </div>
+    </div>
 
 
 
-    </div><!-- /.container-fluid -->
-  </div>
+  </div><!-- /.container-fluid -->
+
   <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->

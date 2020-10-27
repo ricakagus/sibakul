@@ -24,7 +24,7 @@
     <div class="container-fluid">
 
       <div class="row">
-        <div class="col-8">
+        <div class="col-md-8">
           <div class="callout callout-info">
             <h4>Selamat Datang <a href="<?= base_url('user'); ?>" style="text-decoration: none;" class="text-primary"> <?= $mahasiswa['nama']; ?></a>!</h4>
           </div>
@@ -43,7 +43,7 @@
               </ul>
 
               <p>~<b>Terima Kasih</b>~</p>
-              <a href="www.stmikbandungbali.ac.id">STMIK Bandung Bali</a>
+              <a href="https://www.stmikbandungbali.ac.id">STMIK Bandung Bali</a>
             </div>
           </div>
         </div>
