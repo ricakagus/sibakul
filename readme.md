@@ -6,9 +6,9 @@ SIBAKUL dibangun berdasarkan kebutuhan informasi tagihan bagi mahasiswa STMIK BA
 
 INSTALATION
 -----------
-> install CI versi 3
-> import database sibakul.sql
-> sign in:
-	user : admin
-	pass : admin
++ install CI versi 3
++ import database sibakul.sql
++ sign in:
+	++ user : admin
+	++ pass : admin
 
